@@ -34,6 +34,7 @@
 		<dependency>
 			<groupId>app</groupId>
 			<artifactId>app-support</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -58,19 +59,43 @@
 		</plugins>
 	</build>
 	<repositories>
-		
 		<repository>
-			<id>nexus-snapshots</id>
+			<id>MyReleasesNexus</id>
+			<url>http://www.kunlong.com:8081/repository/maven-releases/</url>
+			<releases>
+				<enabled>true</enabled>
+				<!--<updatePolicy>always</updatePolicy>-->
+			</releases>
 			<snapshots>
 				<enabled>true</enabled>
+				<!--<updatePolicy>always</updatePolicy>-->
 			</snapshots>
-			<url>http://third.integriti.cn:8081/repository/maven-snapshots/</url>
 		</repository>
 		<repository>
-			<id>nexus-releases</id>
-			<url>http://third.integriti.cn:8081/repository/maven-releases/</url>
+			<id>MySnapshotNexus</id>
+			<url>http://www.kunlong.com:8081/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</repository>
+
+		<!--<repository>-->
+			<!--<id>nexus-snapshots</id>-->
+			<!--<snapshots>-->
+				<!--<enabled>true</enabled>-->
+			<!--</snapshots>-->
+			<!--<url>http://third.integriti.cn:8081/repository/maven-snapshots/</url>-->
+		<!--</repository>-->
+		<!--<repository>-->
+			<!--<id>nexus-releases</id>-->
+			<!--<url>http://third.integriti.cn:8081/repository/maven-releases/</url>-->
+		<!--</repository>-->
 	</repositories>
-<!--发布到服务器需要 -->
+    <!--发布到服务器需要 -->
 	
 </project>
