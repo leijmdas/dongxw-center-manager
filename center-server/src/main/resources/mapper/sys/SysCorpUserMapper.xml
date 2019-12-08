@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysCorpUserMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysCorpUser" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="user_id" property="userId" jdbcType="INTEGER" />
+	  	<result column="org_id" property="orgId" jdbcType="INTEGER" />
+	  	<result column="corp_id" property="corpId" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysCorpUser" type="cn.integriti.center.biz.sys.domain.SysCorpUser" >
+	    <id column="tscu_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tscu_user_id" property="userId" jdbcType="INTEGER" />
+	  	<result column="tscu_org_id" property="orgId" jdbcType="INTEGER" />
+	  	<result column="tscu_corp_id" property="corpId" jdbcType="INTEGER" />
+	  	<result column="tscu_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tscu_op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,user_id,org_id,corp_id,create_on,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysCorpUser" >
+  		tscu.id tscu_id,tscu.user_id tscu_user_id,tscu.org_id tscu_org_id,tscu.corp_id tscu_corp_id,tscu.create_on tscu_create_on,tscu.op_on tscu_op_on
+	</sql>
+	
+	<!-- 系统自定义 -->
+	<!-- 实体参数查询结果[START] -->
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysCorpUser" extends="BaseResultMap_SysCorpUser">
+		
+	</resultMap>
+
+	<sql id="Condition_FindByQueryParam">
+		<if test="queryParam.param!=null">
+			<bind name="p" value="queryParam.param"/>
+			<if test="p.id!=null ">
+		    	and tscu.id=#{p.id}
+		    </if>
+			<if test="p.userId!=null ">
+		    	and tscu.user_id=#{p.userId}
+		    </if>
+			<if test="p.orgId!=null ">
+		    	and tscu.org_id=#{p.orgId}
+		    </if>
+			<if test="p.corpId!=null ">
+		    	and tscu.corp_id=#{p.corpId}
+		    </if>
+			<if test="p.createOn!=null ">
+		    	and tscu.create_on=#{p.createOn}
+		    </if>
+			<if test="p.opOn!=null ">
+		    	and tscu.op_on=#{p.opOn}
+		    </if>
+		</if>
+		<bind name="rp" value="queryParam.ruleParam" />
+		<include refid="org.mybatis.hbatis.orm.mapper.HbatisMapper.RuleParam"/>
+	</sql>
+	<select id="findByQueryParam" resultMap="ResultMap_FindByQueryParam">
+		select
+		<include refid="Base_Column_List_SysCorpUser"></include>
+		from t_sys_corp_user tscu where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+		<if test="queryParam.limit gt 0">
+	  		limit ${queryParam.start},${queryParam.limit}
+	  	</if>
+	</select>
+	<select id="countByQueryParam" resultType="long">
+		select count(1) from t_sys_corp_user tscu where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+	</select>
+	
+	<!-- 实体参数查询结果[END] -->
+	<!-- 用户自定义 -->
+	
+</mapper>

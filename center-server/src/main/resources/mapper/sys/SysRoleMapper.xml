@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+  	<result column="corp_id" property="corpId" jdbcType="INTEGER" />
+  	<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+  	<result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+  	<result column="type" property="type" jdbcType="INTEGER" />
+  	<result column="status" property="status" jdbcType="TINYINT" />
+  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultMap_SysRole" type="cn.integriti.center.biz.sys.domain.SysRole" >
+   <id column="tsr_id" property="id" jdbcType="INTEGER" />	
+  	<result column="tsr_corp_id" property="corpId" jdbcType="INTEGER" />
+  	<result column="tsr_role_name" property="roleName" jdbcType="VARCHAR" />
+  	<result column="tsr_role_code" property="roleCode" jdbcType="VARCHAR" />
+  	<result column="tsr_type" property="type" jdbcType="INTEGER" />
+  	<result column="tsr_status" property="status" jdbcType="TINYINT" />
+  	<result column="tsr_remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="tsr_create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="tsr_create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="tsr_op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="tsr_op_on" property="opOn" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+  	id,corp_id,role_name,role_code,type,status,remark,create_by,create_on,op_by,op_on
+ </sql>
+  <sql id="Base_Column_List_SysRole" >
+  	tsr.id tsr_id,tsr.corp_id tsr_corp_id,tsr.role_name tsr_role_name,tsr.role_code tsr_role_code,tsr.type tsr_type,tsr.status tsr_status,tsr.remark tsr_remark,tsr.create_by tsr_create_by,tsr.create_on tsr_create_on,tsr.op_by tsr_op_by,tsr.op_on tsr_op_on
+ </sql>
+  
+  <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<bind name="r" value="queryParam.param"/>
+  		<if test="r!=null">
+  			<if test="r.corpId!=null">
+  				and tsr.corp_id=#{r.corpId}
+  			</if>
+  			<if test="r.roleCode!=null and r.roleCode!=''">
+  				and tsr.role_code=#{r.roleCode}
+  			</if>
+  			<if test="r.type!=null">
+  				and tsr.type=#{r.type}
+  			</if>
+  			<if test="r.status!=null">
+  				and tsr.status=#{r.status}
+  			</if>
+  			<if test="r.roleName!=null and r.roleName!=''">
+  				and tsr.role_name like concat('%',#{r.roleName},'%')
+  			</if>
+  		</if>
+  	</if>
+  </sql>
+
+  <select id="findByQueryParam" resultMap="BaseResultMap_SysRole">
+    select 
+	<include refid="Base_Column_List_SysRole"></include>
+  	from t_sys_role tsr 
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by tsr.op_on desc limit ${queryParam.start},${queryParam.limit}
+  	
+  </select>
+  <select id="countByQueryParam" resultType="long">
+  	select count(1)
+  	from t_sys_role tsr
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+  
+  <!-- 查询用户角色 -->
+  <select id="findUserRoles" parameterType="map" resultMap="BaseResultMap">
+  	select sr.* from t_sys_role sr,t_sys_user_role sur where sr.id=sur.role_id 
+  	and sur.user_id=${userId} and sr.type=${type}
+  </select>
+  
+  
+</mapper>

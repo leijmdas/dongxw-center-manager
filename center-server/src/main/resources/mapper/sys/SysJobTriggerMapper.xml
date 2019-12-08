@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysJobTrigger" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="job_id" property="jobId" jdbcType="INTEGER" />
+	  	<result column="trigger_name" property="triggerName" jdbcType="VARCHAR" />
+	  	<result column="priority" property="priority" jdbcType="INTEGER" />
+	  	<result column="cron_expression" property="cronExpression" jdbcType="VARCHAR" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysJobTrigger" type="cn.integriti.center.biz.sys.domain.SysJobTrigger" >
+	    <id column="tsjt_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsjt_job_id" property="jobId" jdbcType="INTEGER" />
+	  	<result column="tsjt_trigger_name" property="triggerName" jdbcType="VARCHAR" />
+	  	<result column="tsjt_priority" property="priority" jdbcType="INTEGER" />
+	  	<result column="tsjt_cron_expression" property="cronExpression" jdbcType="VARCHAR" />
+	  	<result column="tsjt_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsjt_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsjt_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsjt_update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="tsjt_update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsjt_is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,job_id,trigger_name,priority,cron_expression,remark,create_by,create_on,update_by,update_on,is_deleted
+	</sql>
+  	 <sql id="Base_Column_List_SysJobTrigger" >
+  		tsjt.id tsjt_id,tsjt.job_id tsjt_job_id,tsjt.trigger_name tsjt_trigger_name,tsjt.priority tsjt_priority,tsjt.cron_expression tsjt_cron_expression,
+  		tsjt.remark tsjt_remark,tsjt.create_by tsjt_create_by,tsjt.create_on tsjt_create_on,
+  		tsjt.update_by tsjt_update_by,tsjt.update_on tsjt_update_on,tsjt.is_deleted tsjt_is_deleted
+	</sql>
+	<!-- 自定义内容 -->
+	
+	<sql id="Base_Column_List_SysJob" >
+  		tsj.id tsj_id,tsj.group_id tsj_group_id,tsj.job_name tsj_job_name,tsj.job_type tsj_job_type,tsj.job_class tsj_job_class,tsj.remark tsj_remark,tsj.create_by tsj_create_by,tsj.create_on tsj_create_on,tsj.update_by tsj_update_by,tsj.update_on tsj_update_on,tsj.is_deleted tsj_is_deleted
+	</sql>
+	
+	<sql id="Base_Column_List_SysInterfaceTrigger" >
+  		tsit.id tsit_id,tsit.interface_id tsit_interface_id,tsit.trigger_id tsit_trigger_id,tsit.create_by tsit_create_by,tsit.create_on tsit_create_on,tsit.update_by tsit_update_by,tsit.update_on tsit_update_on
+	</sql>
+	
+	<sql id="Base_Column_List_SysInterface" >
+  		tsi.id tsi_id,tsi.domain_id tsi_domain_id,tsi.intf_name tsi_intf_name,tsi.request_timeout tsi_request_timeout,tsi.request_url tsi_request_url,tsi.request_method tsi_request_method,tsi.invoke_type tsi_invoke_type,tsi.invoke_receipt tsi_invoke_receipt,tsi.status tsi_status,tsi.remark tsi_remark,tsi.create_by tsi_create_by,tsi.create_on tsi_create_on,tsi.update_by tsi_update_by,tsi.update_on tsi_update_on,tsi.is_deleted tsi_is_deleted
+	</sql>
+	
+	<sql id="Base_Column_List_SysDomain" >
+  		tsd.id tsd_id,tsd.domain_code tsd_domain_code,tsd.domain_name tsd_domain_name,tsd.api_secret tsd_api_secret,tsd.domain_url tsd_domain_url,tsd.status tsd_status,tsd.remark tsd_remark,tsd.op_by tsd_op_by,tsd.op_on tsd_op_on
+	</sql>
+	
+   <resultMap id="ResultMap_WithTrigger" type="cn.integriti.center.biz.sys.domain.SysJobTrigger" extends="BaseResultMap">
+  	<association property="sysJob" columnPrefix="tsj_" resultMap="cn.integriti.center.biz.sys.dao.SysJobMapper.BaseResultMap"></association>
+  	<association property="sysInterfaceTrigger" columnPrefix="tsit_" resultMap="cn.integriti.center.biz.sys.dao.SysInterfaceTriggerMapper.BaseResultMap"></association>
+  	<association property="sysInterface" columnPrefix="tsi_" resultMap="cn.integriti.center.biz.sys.dao.SysInterfaceMapper.BaseResultMap"></association>
+  	<association property="sysDomain" columnPrefix="tsd_" resultMap="cn.integriti.center.biz.sys.dao.SysDomainMapper.BaseResultMap"></association>
+  </resultMap>
+	
+	<!-- 动态update公用抽取的列值-->
+	<sql id="dymicset">
+		  <trim suffixOverrides=",">
+	        	<if test="sysJobTrigger.triggerName!=null">TRIGGER_NAME = #{sysJobTrigger.triggerName,jdbcType=VARCHAR},</if>
+	        	<if test="sysJobTrigger.priority!=null">PRIORITY = #{sysJobTrigger.priority,jdbcType=VARCHAR},</if>
+	        	<if test="sysJobTrigger.cronExpression!=null">CRON_EXPRESSION = #{sysJobTrigger.cronExpression,jdbcType=DECIMAL},</if>
+	        	<if test="sysJobTrigger.remark!=null">REMARK = #{sysJobTrigger.remark,jdbcType=VARCHAR},</if>
+	        	<if test="sysJobTrigger.createBy!=null">CREATE_BY =#{sysJobTrigger.createBy,jdbcType=INTEGER}, </if>
+	  			<if test="sysJobTrigger.createOn!=null">CREATE_ON =#{sysJobTrigger.createOn,jdbcType=TIMESTAMP}, </if>
+	  			<if test="sysJobTrigger.jobId!=null">JOB_ID =#{sysJobTrigger.jobId,jdbcType=INTEGER}, </if>
+	  			<if test="sysJobTrigger.isDeleted!=null">IS_DELETED =#{sysJobTrigger.isDeleted,jdbcType=TINYINT} </if>
+	   	  </trim>	
+	</sql>
+	
+	<!-- 动态条件公用抽取的列值-->
+	<sql id="dymicwhere">
+			<trim suffixOverrides="and | or" >
+		        <if test="sysJobTrigger.triggerName!=null">TRIGGER_NAME = #{sysJobTrigger.triggerName,jdbcType=VARCHAR}</if>
+	        	<if test="sysJobTrigger.priority!=null">PRIORITY = #{sysJobTrigger.priority,jdbcType=VARCHAR}</if>
+	        	<if test="sysJobTrigger.cronExpression!=null">CRON_EXPRESSION = #{sysJobTrigger.cronExpression,jdbcType=DECIMAL}</if>
+	        	<if test="sysJobTrigger.remark!=null">REMARK = #{sysJobTrigger.remark,jdbcType=VARCHAR}</if>
+	        	<if test="sysJobTrigger.createBy!=null">CREATE_BY =#{sysJobTrigger.createBy,jdbcType=INTEGER} </if>
+	  			<if test="sysJobTrigger.createOn!=null">CREATE_ON =#{sysJobTrigger.createOn,jdbcType=TIMESTAMP} </if>
+	  			<if test="sysJobTrigger.jobId!=null">JOB_ID =#{sysJobTrigger.jobId,jdbcType=INTEGER}</if>
+	  			<if test="sysJobTrigger.isDeleted!=null">IS_DELETED =#{sysJobTrigger.isDeleted,jdbcType=TINYINT} </if>
+	       </trim>	
+	</sql>
+	
+	<update id="updateClause"  parameterType="cn.integriti.center.biz.sys.domain.SysJobTrigger">
+        update t_sys_job_trigger set <include refid="dymicset"/> where 
+       		id = #{sysJobTrigger.id} 
+	</update>
+	
+	
+	 <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<bind name="j" value="queryParam.param"/>
+  		<if test="j!=null">
+  			<if test="j.triggerName!=null and j.triggerName!=''">
+  				and ( tsjt.trigger_name like concat('%',#{j.triggerName},'%')
+  			</if>
+  			<if test="j.sysJob!=null">
+	  			<if test="j.sysJob.jobName!=null and j.sysJob.jobName!=''">
+	  				or tsj.job_name like concat('%',#{j.sysJob.jobName},'%') )
+	  			</if>
+  			</if>
+  		</if>
+  	</if>
+  </sql>
+<!-- 
+  <select id="findByQueryParam" resultMap="ResultMap_WithTrigger">
+  	select <include refid="Base_Column_List_SysJob"></include>,
+  	<include refid="Base_Column_List_SysJobTrigger"></include>,
+  	<include refid="Base_Column_List_SysInterfaceTrigger"></include>,
+  	<include refid="Base_Column_List_SysInterface"></include>,
+  	<include refid="Base_Column_List_SysDomain"></include>
+  	from t_sys_job_trigger tsjt 
+  	LEFT JOIN  t_sys_job tsj on tsj.id = tsjt.job_id
+  	LEFT JOIN t_sys_interface_trigger tsit on tsit.trigger_id = tsjt.id
+	LEFT JOIN t_sys_interface tsi on tsit.interface_id = tsi.id
+	LEFT JOIN t_sys_domain tsd on tsd.id = tsi.domain_id
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by tsjt.id asc limit ${queryParam.start},${queryParam.limit}
+  </select>
+
+  <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_job tsj LEFT JOIN t_sys_job_trigger tsjt on tsj.id = tsjt.job_id
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+   -->
+    <select id="findJobTriggerById" resultMap="ResultMap_WithTrigger">
+  	select 
+  	<include refid="Base_Column_List_SysJob"></include>,
+  	<include refid="Base_Column_List_SysJobTrigger"></include>,
+  	<include refid="Base_Column_List_SysInterfaceTrigger"></include>,
+  	<include refid="Base_Column_List_SysInterface"></include>,
+  	<include refid="Base_Column_List_SysDomain"></include>
+  	from t_sys_job_trigger tsjt  
+  	LEFT JOIN t_sys_job tsj on tsj.id = tsjt.job_id
+  	LEFT JOIN t_sys_interface_trigger tsit on tsit.trigger_id = tsjt.id
+	LEFT JOIN t_sys_interface tsi on tsit.interface_id = tsi.id
+	LEFT JOIN t_sys_domain tsd on tsd.id = tsi.domain_id
+  	where tsjt.id = #{id}
+  </select>
+  
+  
+   
+  <!-- 联合查询结果 -->
+  <resultMap type="cn.integriti.center.biz.sys.domain.SysJobTrigger$QuartzTrigger" id="ResultMap_QuartzTrigger">
+  	<result column="trigger_state" property="triggerState" jdbcType="VARCHAR" />
+	<result column="prev_firetime" property="prevFireTime" jdbcType="TIMESTAMP" />
+	<result column="next_firetime" property="nextFireTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMap_WithQuartzTrigger" extends="BaseResultMap_SysJobTrigger" type="cn.integriti.center.biz.sys.domain.SysJobTrigger">
+		<association property="sysJob" resultMap="cn.integriti.center.biz.sys.dao.SysJobMapper.BaseResultMap_SysJob"></association>
+		<association property="quartzTrigger" resultMap="ResultMap_QuartzTrigger"></association>
+ </resultMap>
+  <!-- 联合查询 -->
+  <select id="findByQueryParam" parameterType="map" resultMap="ResultMap_WithQuartzTrigger">
+  	select 
+    <include refid="Base_Column_List_SysJobTrigger" />,tsj.job_name tsj_job_name,tsj.id tsj_id,
+    STR_TO_DATE(FROM_UNIXTIME(qt.NEXT_FIRE_TIME/1000),'%Y-%m-%d %H:%i:%S') next_firetime, 
+    STR_TO_DATE(FROM_UNIXTIME(qt.PREV_FIRE_TIME/1000),'%Y-%m-%d %H:%i:%S') prev_firetime,
+    qt.TRIGGER_STATE trigger_state
+    FROM t_sys_job_trigger tsjt join t_sys_job tsj on(tsjt.job_id=tsj.id) LEFT JOIN QRTZ_TRIGGERS qt ON (qt.TRIGGER_NAME=tsjt.id and qt.TRIGGER_GROUP=tsjt.job_id ) 
+    <include refid="Condition_findByQueryParam"/>
+   	order by tsjt.id desc
+  	<if test="queryParam.start gt -1">
+  		limit ${queryParam.start},${queryParam.limit}
+  	</if>
+  </select>
+  <!-- 联合查询 -->
+  <select id="countByQueryParam" resultType="long">
+  	select count(1)
+    FROM t_sys_job_trigger tsjt LEFT JOIN QRTZ_TRIGGERS qt ON (qt.TRIGGER_NAME=tsjt.id and qt.TRIGGER_GROUP=tsjt.job_id ) 
+    <include refid="Condition_findByQueryParam"/>
+  </select>
+  
+  <select id="findAllTriggers" resultMap="ResultMap_WithQuartzTrigger">
+  	select 
+    <include refid="Base_Column_List_SysJobTrigger" /> FROM t_sys_job_trigger tsjt join t_sys_job tsj on(tsjt.job_id=tsj.id)
+    where tsj.job_type=${jobType}
+    
+    
+    
+    
+    
+    
+  </select>
+</mapper>

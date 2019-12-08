@@ -1,0 +1,11 @@
+#公共默认配置
+centerServer: http://test.tenfont.com:8761 #服务注册及配置中心
+
+spring:
+  application:
+    name: center
+  profiles:
+    active: dev
+server:
+  port: 8000
+  contextPath: /

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysResourceGroupMapper">
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysResourceGroup">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="group_type" property="groupType" jdbcType="TINYINT" />
+		<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+		<result column="order_num" property="orderNum" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="icon_class" property="iconClass" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="INTEGER" />
+		<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+		<result column="op_by" property="opBy" jdbcType="INTEGER" />
+		<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+		<result column="domain_id" property="domainId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,group_type,group_name,order_num,status,remark,icon_class,create_by,create_on,op_by,op_on,domain_id
+	</sql>
+	<sql id="Base_Column_List_Group">
+		srg.id srg_id,srg.group_type srg_group_type,srg.group_name srg_group_name,srg.order_num srg_order_num,
+		srg.status srg_status,srg.remark srg_remark,srg.icon_class srg_icon_class,srg.create_by srg_create_by,
+		srg.create_on srg_create_on,srg.op_by srg_op_by,srg.op_on srg_op_on,srg.domain_id srg_domain_id
+	</sql>
+
+	<resultMap type="cn.integriti.center.biz.sys.domain.SysResourceGroup"
+		id="ResultMap_WithResource" extends="BaseResultMap">
+		<collection property="sysResources" columnPrefix="sr_"
+			resultMap="cn.integriti.center.biz.sys.dao.SysResourceMapper.BaseResultMap"></collection>
+
+	</resultMap>
+	<select id="findRoleResources" parameterType="map"
+		resultMap="ResultMap_WithResource">
+		select srg.*,v.* FROM t_sys_resource_group srg
+		JOIN (SELECT DISTINCT
+		(sr.id) sr_uid,
+		sr.id sr_id,
+		sr.group_id sr_group_id,
+		sr.res_name sr_res_name,
+		sr.res_code sr_res_code,
+		sr.type sr_type,
+		sr.res_path sr_res_path,
+		sr.order_num sr_order_num,
+		sr.status sr_status,
+		sr.remark sr_remark,
+		sr.create_by sr_create_by,
+		sr.create_on sr_create_on,
+		sr.op_by sr_op_by,
+		sr.op_on sr_op_on
+		FROM t_sys_resource sr,
+		t_sys_role_resource srr
+		WHERE sr.id = srr.resource_id
+		AND srr.role_id IN
+		<foreach collection="roleIds" item="roleId" open="("
+			separator="," close=")">
+			${roleId}
+		</foreach>
+		) v
+
+		ON (v.sr_group_id = srg.id)
+		ORDER BY srg.order_num ASC,srg.id desc,v.sr_order_num asc,v.sr_id
+	</select>
+	
+	<!-- 查询岗位资源 -->
+	<select id="findPositionResources" resultMap="ResultMap_WithResource">
+	select srg.*,v.* FROM t_sys_resource_group srg
+		JOIN (SELECT DISTINCT
+		(sr.id) sr_uid,
+		sr.id sr_id,
+		sr.group_id sr_group_id,
+		sr.res_name sr_res_name,
+		sr.res_code sr_res_code,
+		sr.type sr_type,
+		sr.res_path sr_res_path,
+		sr.order_num sr_order_num,
+		sr.status sr_status,
+		sr.remark sr_remark,
+		sr.create_by sr_create_by,
+		sr.create_on sr_create_on,
+		sr.op_by sr_op_by,
+		sr.op_on sr_op_on
+		FROM t_sys_resource sr,
+		t_sys_position_resource srr
+		WHERE sr.id = srr.resource_id
+		AND srr.position_id IN
+		<foreach collection="positionIds" item="positionId" open="("
+			separator="," close=")">
+			${positionId}
+		</foreach>
+		) v
+
+		ON (v.sr_group_id = srg.id)
+		ORDER BY srg.order_num ASC,v.sr_order_num asc
+	</select>
+	<!-- 查询全部 -->
+	<select id="findAllByType" parameterType="map"
+		resultMap="ResultMap_WithResource">
+		select srg.*,sr.id sr_id,
+		sr.group_id sr_group_id,
+		sr.res_name sr_res_name,
+		sr.res_code sr_res_code,
+		sr.type sr_type,
+		sr.res_path sr_res_path,
+		sr.order_num sr_order_num,
+		sr.status sr_status,
+		sr.remark sr_remark,
+		sr.create_by sr_create_by,
+		sr.create_on sr_create_on,
+		sr.op_by sr_op_by,
+		sr.op_on sr_op_on FROM t_sys_resource_group srg
+		JOIN t_sys_resource sr 
+		ON (sr.group_id = srg.id)
+		where srg.domain_id=${domainId} and srg.group_type=${groupType}
+		ORDER BY srg.order_num ASC,sr.order_num asc
+	</select>
+	
+</mapper>

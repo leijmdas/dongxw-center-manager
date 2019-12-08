@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysInterfaceTriggerMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysInterfaceTrigger" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="interface_id" property="interfaceId" jdbcType="INTEGER" />
+	  	<result column="trigger_id" property="triggerId" jdbcType="INTEGER" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysInterfaceTrigger" type="cn.integriti.center.biz.sys.domain.SysInterfaceTrigger" >
+	    <id column="tsit_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsit_interface_id" property="interfaceId" jdbcType="INTEGER" />
+	  	<result column="tsit_trigger_id" property="triggerId" jdbcType="INTEGER" />
+	  	<result column="tsit_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsit_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsit_update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="tsit_update_on" property="updateOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,interface_id,trigger_id,create_by,create_on,update_by,update_on
+	</sql>
+  	<sql id="Base_Column_List_SysInterfaceTrigger" >
+  		tsit.id tsit_id,tsit.interface_id tsit_interface_id,tsit.trigger_id tsit_trigger_id,tsit.create_by tsit_create_by,tsit.create_on tsit_create_on,tsit.update_by tsit_update_by,tsit.update_on tsit_update_on
+	</sql>
+	
+	<!-- 自定义内容 -->
+	<delete id="deleteTriggerIdInterfaceId" parameterType="cn.integriti.center.biz.sys.domain.SysInterfaceTrigger">
+		delete from t_sys_interface_trigger where 
+		interface_id=#{sysInterfaceTrigger.interfaceId} and
+		trigger_id =#{sysInterfaceTrigger.triggerId} 
+	</delete>
+</mapper>

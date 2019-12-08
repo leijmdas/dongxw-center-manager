@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysJobGroupMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysJobGroup" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysJobGroup" type="cn.integriti.center.biz.sys.domain.SysJobGroup" >
+	    <id column="tsjg_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsjg_group_name" property="groupName" jdbcType="VARCHAR" />
+	  	<result column="tsjg_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsjg_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsjg_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsjg_update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="tsjg_update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsjg_is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,group_name,remark,create_by,create_on,update_by,update_on,is_deleted
+	</sql>
+  	<sql id="Base_Column_List_SysJobGroup" >
+  		tsjg.id tsjg_id,tsjg.group_name tsjg_group_name,tsjg.remark tsjg_remark,tsjg.create_by tsjg_create_by,tsjg.create_on tsjg_create_on,tsjg.update_by tsjg_update_by,tsjg.update_on tsjg_update_on,tsjg.is_deleted tsjg_is_deleted
+	</sql>
+	
+	<!-- 自定义内容 -->
+	<!-- 动态update公用抽取的列值-->
+	<sql id="dymicset">
+		  <trim suffixOverrides=",">
+	        	<if test="sysJobGroup.groupName!=null">GROUP_NAME = #{sysJobGroup.groupName,jdbcType=VARCHAR},</if>
+	        	<if test="sysJobGroup.remark!=null">REMARK = #{sysJobGroup.remark,jdbcType=VARCHAR},</if>
+	        	<if test="sysJobGroup.createBy!=null">CREATE_BY =#{sysJobGroup.createBy,jdbcType=INTEGER}, </if>
+	  			<if test="sysJobGroup.createOn!=null">CREATE_ON =#{sysJobGroup.createOn,jdbcType=TIMESTAMP}, </if>
+	  			<if test="sysJobGroup.isDeleted!=null">IS_DELETED =#{sysJobGroup.isDeleted,jdbcType=TINYINT} </if>
+	   	  </trim>	
+	</sql>
+	
+	<!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<bind name="j" value="queryParam.param"/>
+  		<if test="j!=null">
+  			<if test="j.groupName!=null and j.groupName!=''">
+  				and tsjg.group_name like concat('%',#{j.groupName},'%')
+  			</if>
+  		</if> 
+  	</if>
+  </sql>
+  
+  
+  
+   <update id="updateClause"  parameterType="cn.integriti.center.biz.sys.domain.SysJobGroup">
+        update t_sys_job_group set <include refid="dymicset"/> where 
+       		id = #{sysJobGroup.id} 
+   </update>
+	
+	<select id="findByQueryParam" resultMap="BaseResultMap_SysJobGroup">
+  	select <include refid="Base_Column_List_SysJobGroup"></include>
+  	from t_sys_job_group tsjg 
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by tsjg.id asc limit ${queryParam.start},${queryParam.limit}
+  </select>
+
+  
+   <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_job_group tsjg
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+	
+</mapper>

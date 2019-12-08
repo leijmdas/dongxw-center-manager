@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysUserMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysUser" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="username" property="username" jdbcType="VARCHAR" />
+	  	<result column="passwd" property="passwd" jdbcType="VARCHAR" />
+	  	<result column="realname" property="realname" jdbcType="VARCHAR" />
+	  	<result column="corp_id" property="corpId" jdbcType="INTEGER" />
+	  	<result column="org_id" property="orgId" jdbcType="INTEGER" />
+	  	<result column="mobile_no" property="mobileNo" jdbcType="VARCHAR" />
+	  	<result column="email" property="email" jdbcType="VARCHAR" />
+	  	<result column="status" property="status" jdbcType="TINYINT" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+	  	<result column="ext_params" property="extParams" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysUser" type="cn.integriti.center.biz.sys.domain.SysUser" >
+	    <id column="tsu_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsu_username" property="username" jdbcType="VARCHAR" />
+	  	<result column="tsu_passwd" property="passwd" jdbcType="VARCHAR" />
+	  	<result column="tsu_realname" property="realname" jdbcType="VARCHAR" />
+	  	<result column="tsu_corp_id" property="corpId" jdbcType="INTEGER" />
+	  	<result column="tsu_org_id" property="orgId" jdbcType="INTEGER" />
+	  	<result column="tsu_mobile_no" property="mobileNo" jdbcType="VARCHAR" />
+	  	<result column="tsu_email" property="email" jdbcType="VARCHAR" />
+	  	<result column="tsu_status" property="status" jdbcType="TINYINT" />
+	  	<result column="tsu_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsu_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsu_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsu_op_by" property="opBy" jdbcType="INTEGER" />
+	  	<result column="tsu_op_on" property="opOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsu_ext_params" property="extParams" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,username,passwd,realname,corp_id,org_id,mobile_no,email,status,remark,create_by,create_on,op_by,op_on,ext_params
+	</sql>
+  	<sql id="Base_Column_List_SysUser" >
+  		tsu.id tsu_id,tsu.username tsu_username,tsu.passwd tsu_passwd,tsu.realname tsu_realname,tsu.corp_id tsu_corp_id,tsu.org_id tsu_org_id,tsu.mobile_no tsu_mobile_no,tsu.email tsu_email,tsu.status tsu_status,tsu.remark tsu_remark,tsu.create_by tsu_create_by,tsu.create_on tsu_create_on,tsu.op_by tsu_op_by,tsu.op_on tsu_op_on,tsu.ext_params tsu_ext_params
+	</sql>
+	
+	<!-- 系统自定义 -->
+	<!-- 实体参数查询结果[START] -->
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysUser" extends="BaseResultMap_SysUser">
+		
+	</resultMap>
+
+	
+ 
+ <sql id="Base_Column_List_User" >
+  	u.id,u.username,u.passwd,u.realname,u.corp_id,u.org_id,u.mobile_no,u.email,u.status,u.remark
+ </sql>
+  <sql id="Base_Column_List_Org" >
+  	o.id o_id,o.org_name o_org_name,o.pid o_pid,o.org_path o_org_path,o.status o_status,o.order_num o_order_num
+ </sql>
+ 
+  <sql id="Base_Column_List_Role" >
+  	r.id r_id,r.role_name r_role_name,r.role_code r_role_code,r.status r_status
+  </sql>
+  <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam.param!=null">
+  		<bind name="p" value="queryParam.param"/>
+		<if test="p.corpId!=null">
+	    	and u.corp_id=#{p.corpId}
+	    </if>
+		<if test="p.username!=null and p.username!=''">
+	    	and u.username=#{p.username}
+	    </if>
+		<if test="p.orgId!=null and p.orgId!=0">
+	    	and o.org_path like concat((select tso.org_path from t_sys_org tso where tso.id=#{p.orgId}), '%')
+	    </if>
+  		
+  	</if>
+  </sql>
+  <resultMap id="ResultMap_WithOrg_Role" type="cn.integriti.center.biz.sys.domain.SysUser" extends="BaseResultMap">
+  	<association property="sysOrg" columnPrefix="o_" resultMap="cn.integriti.center.biz.sys.dao.SysOrgMapper.BaseResultMap"></association>
+  	<collection property="sysRoles" columnPrefix="r_" resultMap="cn.integriti.center.biz.sys.dao.SysRoleMapper.BaseResultMap"></collection>
+  	
+  </resultMap>
+  <select id="findByQueryParam" resultMap="ResultMap_WithOrg_Role">
+  	select <include refid="Base_Column_List_User"></include>,
+  	<include refid="Base_Column_List_Org"></include>,
+  	<include refid="Base_Column_List_Role"></include>
+  	from t_sys_user u 
+  	left join t_sys_org o on(u.org_id=o.id) 
+  	left join t_sys_user_role ur on(ur.user_id=u.id) 
+  	left join t_sys_role r on(ur.role_id=r.id)
+	where 1=1
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by u.id desc,u.org_id asc,u.op_on desc limit ${queryParam.start},${queryParam.limit}
+  	
+  </select>
+  <select id="countByQueryParam" resultType="long">
+  	select count(u.id) from t_sys_user u 
+  	left join t_sys_org o on(u.org_id=o.id) 
+  	left join t_sys_user_role ur on(ur.user_id=u.id) 
+  	left join t_sys_role r on(ur.role_id=r.id)
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+  
+  <!-- 查询主管用户 -->
+  <select id="findProcessUserOfOrg" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List_User"></include> from t_sys_user u,
+  	t_sys_user_position up,t_sys_position_resource pr,t_sys_resource r where up.user_id=u.id and up.position_id=pu.position_id
+  	and pr.resource_id=r.id and u.org_id=${orgId} and r.type=2 and pr.res_code=#{processCode}
+  </select>
+  
+  <!-- findWithOrg -->
+  <select id="findWithOrgByUserId" resultMap="ResultMap_WithOrg_Role">
+  		select <include refid="Base_Column_List_User"></include>,<include refid="Base_Column_List_Org"></include>
+  	from t_sys_user u  join t_sys_org o on(u.org_id=o.id)  where u.id=${userId}
+  </select>
+  
+  
+  <select id="findByKeywords" resultMap="ResultMap_WithOrg_Role">
+  		select <include refid="Base_Column_List_User"></include>
+  		 from t_sys_user u where 1=1
+  		and u.corp_id=${corpId} 
+  			<if test="userId!=null"> and u.id=#{userId}</if>
+  			<if test="userId==null">
+  				and (u.username like concat('%',#{keywords},'%') or a.mobile_no like concat('%',#{keywords},'%') or a.real_name like concat('%',#{keywords},'%'))
+  			</if>
+  		
+  </select>
+</mapper>

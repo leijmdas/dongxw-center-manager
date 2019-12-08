@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysDictDetailMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysDictItem" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="dict_id" property="dictId" jdbcType="INTEGER" />
+	  	<result column="code" property="code" jdbcType="VARCHAR" />
+	  	<result column="name" property="name" jdbcType="VARCHAR" />
+	  	<result column="status" property="status" jdbcType="TINYINT" />
+	  	<result column="order_num" property="orderNum" jdbcType="INTEGER" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,dict_id,code,name,status,order_num,remark,create_by,create_on,op_by,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysDictDetail" >
+  		tsdd.id tsdd_id,tsdd.dict_id tsdd_dict_id,tsdd.code tsdd_code,tsdd.name tsdd_name,tsdd.status tsdd_status,tsdd.order_num tsdd_order_num,tsdd.remark tsdd_remark,tsdd.create_by tsdd_create_by,tsdd.create_on tsdd_create_on,tsdd.op_by tsdd_op_by,tsdd.op_on tsdd_op_on
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+</mapper>

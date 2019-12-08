@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysMsgMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysMsg" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="msg_type" property="msgType" jdbcType="TINYINT" />
+	  	<result column="title" property="title" jdbcType="VARCHAR" />
+	  	<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	  	<result column="receiver_id" property="receiverId" jdbcType="INTEGER" />
+	  	<result column="receiver_email" property="receiverEmail" jdbcType="VARCHAR" />
+	  	<result column="is_read" property="isRead" jdbcType="BIT" />
+	  	<result column="read_on" property="readOn" jdbcType="TIMESTAMP" />
+	  	<result column="send_status" property="sendStatus" jdbcType="TINYINT" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,msg_type,title,content,receiver_id,receiver_email,is_read,read_on,send_status,create_on,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysMsg" >
+  		tsm.id tsm_id,tsm.msg_type tsm_msg_type,tsm.title tsm_title,tsm.content tsm_content,tsm.receiver_id tsm_receiver_id,tsm.receiver_email tsm_receiver_email,tsm.is_read tsm_is_read,tsm.read_on tsm_read_on,tsm.send_status tsm_send_status,tsm.create_on tsm_create_on,tsm.op_on tsm_op_on
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysInterfaceParamMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysInterfaceParam" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="interface_id" property="interfaceId" jdbcType="INTEGER" />
+	  	<result column="param_key" property="paramKey" jdbcType="VARCHAR" />
+	  	<result column="param_val" property="paramVal" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysInterfaceParam" type="cn.integriti.center.biz.sys.domain.SysInterfaceParam" >
+	    <id column="tsip_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsip_interface_id" property="interfaceId" jdbcType="INTEGER" />
+	  	<result column="tsip_param_key" property="paramKey" jdbcType="VARCHAR" />
+	  	<result column="tsip_param_val" property="paramVal" jdbcType="VARCHAR" />
+	  	<result column="tsip_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsip_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsip_update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="tsip_update_on" property="updateOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,interface_id,param_key,param_val,create_by,create_on,update_by,update_on
+	</sql>
+  	<sql id="Base_Column_List_SysInterfaceParam" >
+  		tsip.id tsip_id,tsip.interface_id tsip_interface_id,tsip.param_key tsip_param_key,tsip.param_val tsip_param_val,tsip.create_by tsip_create_by,tsip.create_on tsip_create_on,tsip.update_by tsip_update_by,tsip.update_on tsip_update_on
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+</mapper>

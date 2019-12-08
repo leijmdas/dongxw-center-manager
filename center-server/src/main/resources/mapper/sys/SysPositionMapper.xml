@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysPositionMapper" >
+  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysPosition" >
+    <id column="id" property="id" jdbcType="INTEGER" />	
+  	<result column="position_name" property="positionName" jdbcType="VARCHAR" />
+  	<result column="status" property="status" jdbcType="TINYINT" />
+  	<result column="order_num" property="orderNum" jdbcType="INTEGER" />
+  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+  	id,position_name,status,order_num,remark,create_by,create_on,op_by,op_on,org_id
+ </sql>
+ <sql id="Base_Column_List_Position" >
+  	p.id p_id,p.position_name p_position_name,p.status p_status,p.order_num p_order_num,p.remark p_remark,
+  	p.create_by p_create_by,p.create_on p_create_on,p.op_by p_op_by,p.op_on p_op_on,p.org_id p_org_id
+ </sql>
+ <sql id="Base_Column_List_Org" >
+  	o.id o_id,o.org_name o_org_name,o.pid o_pid,o.org_path o_org_path,o.status o_status,o.order_num o_order_num,o.remark o_remark,
+  	o.create_by o_create_by,o.create_on o_create_on,o.op_by o_op_by,o.op_on o_op_on
+ </sql>
+  <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<if test="queryParam.param!=null">
+  			<if test="queryParam.param.positionName!=null and queryParam.param.positionName!=''">
+  				and p.position_name like concat('%',#{queryParam.param.positionName},'%')
+  			</if>
+  			<if test="queryParam.param.orgId!=null">
+	  			<if test="queryParam.cascadeOrgChild!=null and !queryParam.cascadeOrgChild">
+	  				and p.org_id = ${queryParam.param.orgId}
+	  			</if>
+	  			<if test="queryParam.cascadeOrgChild!=null and queryParam.cascadeOrgChild">
+	  				and o.org_path like (
+	  					select concat(org_path,'%') from t_sys_org where id=${queryParam.param.orgId}
+	  				)
+	  			</if>
+	  		</if>
+  		</if>
+  		
+  	</if>
+  </sql>
+  <resultMap id="ResultMap_WithParent" type="cn.integriti.center.biz.sys.domain.SysPosition">
+  	<id column="p_id" property="id" jdbcType="INTEGER" />	
+  	<result column="p_position_name" property="positionName" jdbcType="VARCHAR" />
+  	<result column="p_status" property="status" jdbcType="TINYINT" />
+  	<result column="p_order_num" property="orderNum" jdbcType="INTEGER" />
+  	<result column="p_remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="p_create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="p_create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="p_op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="p_op_on" property="opOn" jdbcType="TIMESTAMP" />
+  	<result column="p_org_id" property="orgId" jdbcType="INTEGER" />
+  	<association property="sysOrg" columnPrefix="o_" resultMap="cn.integriti.center.biz.sys.dao.SysOrgMapper.BaseResultMap"></association>
+  	
+  </resultMap>
+  <select id="findByQueryParam" resultMap="ResultMap_WithParent">
+  	select <include refid="Base_Column_List_Position"></include>,<include refid="Base_Column_List_Org"></include>
+  	
+  	 from t_sys_org o join t_sys_position p
+  	on(o.id=p.org_id)
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by p.org_id asc,p.order_num asc,p.op_on desc limit ${queryParam.start},${queryParam.limit}
+  	
+  </select>
+  <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_org o join t_sys_position p
+  	on(o.id=p.org_id)
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+  
+  <!-- 通过部门查询级联岗位 -->
+  <select id="findCascadePositionsByOrgId" resultMap="BaseResultMap">
+	select p.id ,p.position_name,p.status ,p.order_num ,p.remark ,
+  	p.create_by ,p.create_on ,p.op_by ,p.op_on ,p.org_id  from t_sys_position p
+  	where p.org_id in(
+	SELECT id FROM t_sys_org o WHERE 
+(SELECT
+                          CONCAT(org_path,'%')
+                        FROM t_sys_org
+                        WHERE id = ${orgId}) REGEXP o.org_path
+     )                  
+  	order by p.org_id asc,p.order_num asc,p.op_on desc
+  	
+  </select>
+  
+  <!-- 查询用户角色 -->
+  <select id="findUserPositions" parameterType="int" resultMap="BaseResultMap">
+  	select sr.* from t_sys_position sr,t_sys_user_position sur where sr.id=sur.position_id
+  	and sur.user_id=${userId}
+  </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysDevMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysDev" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="dev_name" property="devName" jdbcType="VARCHAR" />
+	  	<result column="dev_key" property="devKey" jdbcType="VARCHAR" />
+	  	<result column="dev_value" property="devValue" jdbcType="VARCHAR" />
+	  	<result column="dev_value_type" property="devValueType" jdbcType="VARCHAR" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,dev_name,dev_key,dev_value,dev_value_type,remark
+	</sql>
+  	<sql id="Base_Column_List_SysDev" >
+  		tsd.id tsd_id,tsd.dev_name tsd_dev_name,tsd.dev_key tsd_dev_key,tsd.dev_value tsd_dev_value,tsd.dev_value_type tsd_dev_value_type,tsd.remark tsd_remark
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+</mapper>

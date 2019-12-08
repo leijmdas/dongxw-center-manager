@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysDictMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysDict" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="corp_id" property="corpId" jdbcType="INTEGER" />
+	  	<result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+	  	<result column="dict_code" property="dictCode" jdbcType="VARCHAR" />
+	  	<result column="dict_type" property="dictType" jdbcType="TINYINT" />
+	  	<result column="status" property="status" jdbcType="TINYINT" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,dict_name,dict_code,dict_type,status,remark,create_by,create_on,op_by,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysDict" >
+  		tsd.id tsd_id,tsd.dict_name tsd_dict_name,tsd.dict_code tsd_dict_code,tsd.dict_type tsd_dict_type,tsd.status tsd_status,tsd.remark tsd_remark,tsd.create_by tsd_create_by,tsd.create_on tsd_create_on,tsd.op_by tsd_op_by,tsd.op_on tsd_op_on
+	</sql>
+	
+	<!-- 自定义内容 -->
+	 <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		and tsd.dict_type=${queryParam.param.dictType}
+  		<bind name="param" value="queryParam.param"/>
+  		<if test="param.corpId!=null">
+  			and tsd.corp_id = ${param.corpId}
+  		</if>
+  		<if test="queryParam.keywords!=null and queryParam.keywords!=''">
+  			and (
+  				tsd.dict_name like concat('%',#{queryParam.keywords},'%')
+  			or	tsd.dict_code like concat('%',#{queryParam.keywords},'%')
+  			)
+  		</if>
+  		
+  	</if>
+  </sql>
+  <select id="findByQueryParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"></include> from t_sys_dict tsd
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by tsd.op_on desc
+  	<if test="queryParam.limit gt 0">
+  	 limit ${queryParam.start},${queryParam.limit}
+  	</if>
+  </select>
+  <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_dict tsd
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+  
+  <resultMap type="cn.integriti.center.biz.sys.domain.SysDict" id="ResultMap_WithDetails" extends="BaseResultMap">
+  	<collection property="items"  columnPrefix="tsdd_" resultMap="cn.integriti.center.biz.sys.dao.SysDictDetailMapper.BaseResultMap"></collection>
+  </resultMap>
+  <select id="findByCode" resultMap="ResultMap_WithDetails">
+  	select tsd.*,<include refid="cn.integriti.center.biz.sys.dao.SysDictDetailMapper.Base_Column_List_SysDictDetail"></include> from t_sys_dict tsd left join t_sys_dict_item tsdd on (tsd.id=tsdd.dict_id)
+  	where tsd.corp_id=${corpId} and tsd.dict_code=#{code} order by tsdd.order_num asc,tsdd.op_on desc
+  </select>
+</mapper>

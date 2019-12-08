@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cn.integriti</groupId>
+	<artifactId>center-parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>integriti-center</name>
+	<description>integriti center</description>
+	<parent>
+		<groupId>cn.integriti.boot</groupId>
+		<artifactId>boot-parent</artifactId>
+		<version>2.1.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<modules>
+		<module>center-api</module>
+		<module>center-server</module>
+	</modules>
+
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<docker.server.id>ipark</docker.server.id>
+		<java.version>1.8</java.version>
+	</properties>
+	<!--发布到服务器需要 -->
+	<distributionManagement>
+		<repository>
+			<id>m2-releases</id>
+			<url>
+				http://maven-host:8081/nexus/content/repositories/releases/
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>m2-snapshots</id>
+			<name>nexus snapshots</name>
+			<url>http://maven-host:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+
+	</distributionManagement>
+	<repositories>
+		
+		<repository>
+			<id>nexus-snapshots</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>http://third.integriti.cn:8081/repository/maven-snapshots/</url>
+		</repository>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://third.integriti.cn:8081/repository/maven-releases/</url>
+		</repository>
+		<repository>
+			<id>spring-releases</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/libs-release-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+</project>

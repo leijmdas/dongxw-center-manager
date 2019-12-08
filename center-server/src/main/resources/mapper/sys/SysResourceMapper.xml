@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysResource" >
+    <id column="id" property="id" jdbcType="INTEGER" />	
+  	<result column="group_id" property="groupId" jdbcType="INTEGER" />
+  	<result column="res_name" property="resName" jdbcType="VARCHAR" />
+  	<result column="res_code" property="resCode" jdbcType="VARCHAR" />
+  	<result column="type" property="type" jdbcType="TINYINT" />
+  	<result column="res_path" property="resPath" jdbcType="VARCHAR" />
+  	<result column="order_num" property="orderNum" jdbcType="INTEGER" />
+  	<result column="status" property="status" jdbcType="TINYINT" />
+  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+  	id,group_id,res_name,res_code,type,res_path,order_num,status,remark,create_by,create_on,op_by,op_on
+  </sql>
+
+  <sql id="Base_Column_List_Resource">
+  	sr.id sr_id,sr.group_id sr_group_id,sr.res_name sr_res_name,sr.res_code sr_res_code,sr.type sr_type,
+  	sr.res_path sr_res_path,sr.order_num sr_order_num,sr.status sr_status,sr.remark sr_remark,
+  	sr.create_by sr_create_by,sr.create_on sr_create_on,sr.op_by sr_op_by,sr.op_on sr_op_on
+  </sql>
+
+  <resultMap type="cn.integriti.center.biz.sys.domain.SysResource" id="ResultMap_WithGroup" extends="BaseResultMap">
+	<association property="sysResourceGroup" columnPrefix="srg_" resultMap="cn.integriti.center.biz.sys.dao.SysResourceGroupMapper.BaseResultMap"></association>
+  </resultMap>
+  
+  <!--  -->
+  <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<bind name="r" value="queryParam.param"/>
+  		<if test="r!=null">
+  			<if test="r.status!=null">
+  				and tsr.status=#{r.status}
+  			</if>
+  			<if test="r.resName!=null and r.resName!=''">
+  				and tsr.res_name like concat('%',#{r.resName},'%')
+  			</if>
+  			
+  			<if test="r.groupId!=null">
+  				and tsr.group_id=${r.groupId}
+  			</if>
+  		</if>
+  	</if>
+  </sql>
+
+  <select id="findByQueryParam" resultMap="BaseResultMap">
+  	select tsr.* from t_sys_resource tsr
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by tsr.order_num asc,tsr.op_on desc
+  	<if test="queryParam.limit gt -1">
+  	 limit ${queryParam.start},${queryParam.limit}
+  	</if>
+  </select>
+  <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_resource tsr
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+  <select id="findByIdsWithGroup" parameterType="list" resultMap="ResultMap_WithGroup">
+  	select tsr.*, <include refid="cn.integriti.center.biz.sys.dao.SysResourceGroupMapper.Base_Column_List_Group"></include>
+    from t_sys_resource tsr
+    join t_sys_resource_group srg on tsr.group_id = srg.id
+  	where tsr.id IN
+	<foreach collection="ids" item="id" open="(" separator="," close=")">
+		${id}
+	</foreach>
+  </select>
+</mapper>

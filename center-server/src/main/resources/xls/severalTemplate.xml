@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="Sheet1">
+        <!--<section startRow="0" endRow="0"/>-->
+        <loop startRow="0" endRow="0" items="cucumberDTOList" var="cucumberDTO" varType="com.tf.erp.biz.dto.CucumberDTO">
+            <section startRow="0" endRow="0">
+                <mapping row="0" col="0">cucumberDTO.skuName</mapping>
+                <mapping row="0" col="1">cucumberDTO.avgPrice</mapping>
+                <mapping row="0" col="2">cucumberDTO.marketCurrentTime</mapping>
+                <!--<mapping row="0" col="2">cucumberDTO.avgPrice</mapping>-->
+
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"></cellcheck>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

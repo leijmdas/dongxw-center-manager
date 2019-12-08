@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysNoticeMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysNotice" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="titile" property="titile" jdbcType="VARCHAR" />
+	  	<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	  	<result column="show_seq" property="showSeq" jdbcType="INTEGER" />
+	  	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	  	<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	  	<result column="begin_date" property="beginDate" jdbcType="DATE" />
+	  	<result column="end_date" property="endDate" jdbcType="DATE" />
+	  	<result column="notice_type" property="noticeType" jdbcType="CHAR" />
+	  	<result column="notice_status" property="noticeStatus" jdbcType="CHAR" />
+	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,titile,content,show_seq,update_time,create_time,begin_date,end_date,notice_type,notice_status,op_by
+	</sql>
+  	<sql id="Base_Column_List_SysNotice" >
+  		tsn.id tsn_id,tsn.titile tsn_titile,tsn.content tsn_content,tsn.show_seq tsn_show_seq,tsn.update_time tsn_update_time,tsn.create_time tsn_create_time,tsn.begin_date tsn_begin_date,tsn.end_date tsn_end_date,tsn.notice_type tsn_notice_type,tsn.notice_status tsn_notice_status,tsn.op_by tsn_op_by
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+</mapper>

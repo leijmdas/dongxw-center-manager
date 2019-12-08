@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysCorpMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysCorp" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+	  	<result column="corp_name" property="corpName" jdbcType="VARCHAR" />
+	  	<result column="contact_man" property="contactMan" jdbcType="VARCHAR" />
+	  	<result column="contact_no" property="contactNo" jdbcType="VARCHAR" />
+	  	<result column="address" property="address" jdbcType="VARCHAR" />
+	  	<result column="website" property="website" jdbcType="VARCHAR" />
+	  	<result column="status" property="status" jdbcType="TINYINT" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="regist_on" property="registOn" jdbcType="TIMESTAMP" />
+	  	<result column="audit_status" property="auditStatus" jdbcType="TINYINT" />
+	  	<result column="audit_on" property="auditOn" jdbcType="TIMESTAMP" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysCorp" type="cn.integriti.center.biz.sys.domain.SysCorp" >
+	    <id column="tsc_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsc_corp_code" property="corpCode" jdbcType="VARCHAR" />
+	  	<result column="tsc_corp_name" property="corpName" jdbcType="VARCHAR" />
+	  	<result column="tsc_contact_man" property="contactMan" jdbcType="VARCHAR" />
+	  	<result column="tsc_contact_no" property="contactNo" jdbcType="VARCHAR" />
+	  	<result column="tsc_address" property="address" jdbcType="VARCHAR" />
+	  	<result column="tsc_website" property="website" jdbcType="VARCHAR" />
+	  	<result column="tsc_status" property="status" jdbcType="TINYINT" />
+	  	<result column="tsc_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsc_regist_on" property="registOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsc_audit_status" property="auditStatus" jdbcType="TINYINT" />
+	  	<result column="tsc_audit_on" property="auditOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsc_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsc_op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,corp_code,corp_name,contact_man,contact_no,address,website,status,remark,regist_on,audit_status,audit_on,create_on,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysCorp" >
+  		tsc.id tsc_id,tsc.corp_code tsc_corp_code,tsc.corp_name tsc_corp_name,tsc.contact_man tsc_contact_man,tsc.contact_no tsc_contact_no,tsc.address tsc_address,tsc.website tsc_website,tsc.status tsc_status,tsc.remark tsc_remark,tsc.regist_on tsc_regist_on,tsc.audit_status tsc_audit_status,tsc.audit_on tsc_audit_on,tsc.create_on tsc_create_on,tsc.op_on tsc_op_on
+	</sql>
+	
+	<!-- 系统自定义 -->
+	<!-- 实体参数查询结果[START] -->
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysCorp" extends="BaseResultMap_SysCorp">
+		
+	</resultMap>
+
+	<sql id="Condition_FindByQueryParam">
+		<if test="queryParam.param!=null">
+			<bind name="p" value="queryParam.param"/>
+			<if test="p.id!=null ">
+		    	and tsc.id=#{p.id}
+		    </if>
+			<if test="p.corpCode!=null and p.corpCode!=''">
+		    	and tsc.corp_code=#{p.corpCode}
+		    </if>
+			<if test="p.corpName!=null and p.corpName!=''">
+		    	and tsc.corp_name=#{p.corpName}
+		    </if>
+			<if test="p.contactMan!=null and p.contactMan!=''">
+		    	and tsc.contact_man=#{p.contactMan}
+		    </if>
+			<if test="p.contactNo!=null and p.contactNo!=''">
+		    	and tsc.contact_no=#{p.contactNo}
+		    </if>
+			<if test="p.address!=null and p.address!=''">
+		    	and tsc.address=#{p.address}
+		    </if>
+			<if test="p.website!=null and p.website!=''">
+		    	and tsc.website=#{p.website}
+		    </if>
+			<if test="p.status!=null ">
+		    	and tsc.status=#{p.status}
+		    </if>
+			<if test="p.remark!=null and p.remark!=''">
+		    	and tsc.remark=#{p.remark}
+		    </if>
+			<if test="p.registOn!=null ">
+		    	and tsc.regist_on=#{p.registOn}
+		    </if>
+			<if test="p.auditStatus!=null ">
+		    	and tsc.audit_status=#{p.auditStatus}
+		    </if>
+			<if test="p.auditOn!=null ">
+		    	and tsc.audit_on=#{p.auditOn}
+		    </if>
+			<if test="p.createOn!=null ">
+		    	and tsc.create_on=#{p.createOn}
+		    </if>
+			<if test="p.opOn!=null ">
+		    	and tsc.op_on=#{p.opOn}
+		    </if>
+		</if>
+		<bind name="rp" value="queryParam.ruleParam" />
+		<include refid="org.mybatis.hbatis.orm.mapper.HbatisMapper.RuleParam"/>
+	</sql>
+	<select id="findByQueryParam" resultMap="ResultMap_FindByQueryParam">
+		select
+		<include refid="Base_Column_List_SysCorp"></include>
+		from t_sys_corp tsc where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+		<if test="queryParam.limit gt 0">
+	  		limit ${queryParam.start},${queryParam.limit}
+	  	</if>
+	</select>
+	<select id="countByQueryParam" resultType="long">
+		select count(1) from t_sys_corp tsc where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+	</select>
+	
+	<!-- 实体参数查询结果[END] -->
+	<!-- 用户自定义 -->
+	
+</mapper>

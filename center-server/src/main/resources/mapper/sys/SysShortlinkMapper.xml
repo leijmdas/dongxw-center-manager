@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysShortlinkMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysShortlink" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="code" property="code" jdbcType="VARCHAR" />
+	  	<result column="name" property="name" jdbcType="VARCHAR" />
+	  	<result column="url" property="url" jdbcType="VARCHAR" />
+	  	<result column="short_url" property="shortUrl" jdbcType="VARCHAR" />
+	  	<result column="status" property="status" jdbcType="INTEGER" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysShortlink" type="cn.integriti.center.biz.sys.domain.SysShortlink" >
+	    <id column="tss_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tss_code" property="code" jdbcType="VARCHAR" />
+	  	<result column="tss_name" property="name" jdbcType="VARCHAR" />
+	  	<result column="tss_url" property="url" jdbcType="VARCHAR" />
+	  	<result column="tss_short_url" property="shortUrl" jdbcType="VARCHAR" />
+	  	<result column="tss_status" property="status" jdbcType="INTEGER" />
+	  	<result column="tss_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tss_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tss_op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,code,name,url,short_url,status,remark,create_on,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysShortlink" >
+  		tss.id tss_id,tss.code tss_code,tss.name tss_name,tss.url tss_url,
+  		tss.short_url tss_short_url,tss.status tss_status,tss.remark tss_remark,tss.create_on tss_create_on,tss.op_on tss_op_on
+	</sql>
+	
+	<!-- 系统自定义 -->
+	<!-- 实体参数查询结果[START] -->
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysShortlink" extends="BaseResultMap_SysShortlink">
+		
+	</resultMap>
+
+	<sql id="Condition_FindByQueryParam">
+		<if test="queryParam.param!=null">
+			<bind name="p" value="queryParam.param"/>
+			<if test="p.id!=null ">
+		    	and tss.id=#{p.id}
+		    </if>
+			<if test="p.code!=null and p.code!=''">
+		    	and tss.code=#{p.code}
+		    </if>
+			<if test="p.name!=null and p.name!=''">
+		    	and tss.name like #{p.name}
+		    </if>
+			<if test="p.url!=null and p.url!=''">
+		    	and tss.url like #{p.url}
+		    </if>
+			<if test="p.status!=null ">
+		    	and tss.status=#{p.status}
+		    </if>
+			<if test="p.remark!=null and p.remark!=''">
+		    	and tss.remark=#{p.remark}
+		    </if>
+			<if test="p.createOn!=null ">
+		    	and tss.create_on=#{p.createOn}
+		    </if>
+			<if test="p.opOn!=null ">
+		    	and tss.op_on=#{p.opOn}
+		    </if>
+		</if>
+		<bind name="rp" value="queryParam.ruleParam" />
+		<include refid="org.mybatis.hbatis.orm.mapper.HbatisMapper.RuleParam"/>
+	</sql>
+	<select id="findByQueryParam" resultMap="ResultMap_FindByQueryParam">
+		select
+		<include refid="Base_Column_List_SysShortlink"></include>
+		from t_sys_shortlink tss where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+		order by id desc
+		<if test="queryParam.limit gt 0">
+	  		limit ${queryParam.start},${queryParam.limit}
+	  	</if>
+	</select>
+	<select id="countByQueryParam" resultType="long">
+		select count(1) from t_sys_shortlink tss where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+	</select>
+	
+	<!-- 实体参数查询结果[END] -->
+	<!-- 用户自定义 -->
+	
+</mapper>

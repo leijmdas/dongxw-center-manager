@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysOrgMapper" >
+  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysOrg" >
+    <id column="id" property="id" jdbcType="INTEGER" />	
+  	<result column="org_name" property="orgName" jdbcType="VARCHAR" />
+  	<result column="pid" property="pid" jdbcType="INTEGER" />
+  	<result column="org_path" property="orgPath" jdbcType="VARCHAR" />
+  	<result column="status" property="status" jdbcType="TINYINT" />
+  	<result column="order_num" property="orderNum" jdbcType="INTEGER" />
+  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+  	id,org_name,pid,org_path,status,order_num,remark,create_by,create_on,op_by,op_on
+ </sql>
+ <sql id="Base_Column_List_Org" >
+  	o.id o_id,o.org_name o_org_name,o.pid o_pid,o.org_path o_org_path,o.status o_status,o.order_num o_order_num,o.remark o_remark,
+  	o.create_by o_create_by,o.create_on o_create_on,o.op_by o_op_by,o.op_on o_op_on
+ </sql>
+  <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<if test="queryParam.param!=null">
+  			<if test="queryParam.param.orgName!=null and queryParam.param.orgName!=''">
+  				and o.org_name like concat('%',#{queryParam.param.orgName},'%')
+  			</if>
+  			<if test="queryParam.param.pid!=null">
+	  			<if test="queryParam.cascadeChild!=null and !queryParam.cascadeChild">
+	  				and o.pid = ${queryParam.param.pid}
+	  			</if>
+	  			<if test="queryParam.cascadeChild!=null and queryParam.cascadeChild">
+	  				and(  o.org_path like (
+	  						select concat(org_path,'%') from t_sys_org where id=${queryParam.param.pid}
+	  					)
+	  				)
+	  			</if>
+	  		</if>
+  		</if>
+  		
+  	</if>
+  </sql>
+  <resultMap id="ResultMap_WithParent" type="cn.integriti.center.biz.sys.domain.SysOrg">
+  	<id column="o_id" property="id" jdbcType="INTEGER" />	
+  	<result column="o_org_name" property="orgName" jdbcType="VARCHAR" />
+  	<result column="o_pid" property="pid" jdbcType="INTEGER" />
+  	<result column="o_org_path" property="orgPath" jdbcType="VARCHAR" />
+  	<result column="o_status" property="status" jdbcType="TINYINT" />
+  	<result column="o_order_num" property="orderNum" jdbcType="INTEGER" />
+  	<result column="o_remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="o_create_by" property="createBy" jdbcType="INTEGER" />
+  	<result column="o_create_on" property="createOn" jdbcType="TIMESTAMP" />
+  	<result column="o_op_by" property="opBy" jdbcType="INTEGER" />
+  	<result column="o_op_on" property="opOn" jdbcType="TIMESTAMP" />
+  	
+  	<association property="parentSysOrg" columnPrefix="p_" resultMap="BaseResultMap"></association>
+  </resultMap>
+  <select id="findByQueryParam" resultMap="ResultMap_WithParent">
+  	select <include refid="Base_Column_List_Org"></include>,
+  	p.id p_id,p.org_name p_org_name,p.pid p_pid,p.org_path p_org_path,p.status p_status,p.order_num p_order_num,p.remark p_remark,
+  	p.create_by p_create_by,p.create_on p_create_on,p.op_by p_op_by,p.op_on p_op_on
+  	
+  	 from t_sys_org o left join t_sys_org p
+  	on(o.pid=p.id)
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by o.pid asc,o.order_num asc,o.op_on desc limit ${queryParam.start},${queryParam.limit}
+  	
+  </select>
+  <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_org o
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+  
+   <update id="replacePath">
+  	update t_sys_org set org_path=replace(org_path,#{oldIdPath},#{newIdPath}) where org_path=#{oldIdPath} or org_path like concat(#{oldIdPath},':%')
+  </update>
+</mapper>

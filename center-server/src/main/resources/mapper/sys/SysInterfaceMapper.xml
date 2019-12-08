@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysInterfaceMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysInterface" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="domain_id" property="domainId" jdbcType="INTEGER" />
+	  	<result column="intf_name" property="intfName" jdbcType="VARCHAR" />
+	  	<result column="request_timeout" property="requestTimeout" jdbcType="INTEGER" />
+	  	<result column="request_url" property="requestUrl" jdbcType="VARCHAR" />
+	  	<result column="request_method" property="requestMethod" jdbcType="TINYINT" />
+	  	<result column="invoke_type" property="invokeType" jdbcType="TINYINT" />
+	  	<result column="invoke_receipt" property="invokeReceipt" jdbcType="TINYINT" />
+	  	<result column="status" property="status" jdbcType="TINYINT" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+	  	<result column="count_trigger" property="countTrigger" jdbcType="INTEGER" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysInterface" type="cn.integriti.center.biz.sys.domain.SysInterface" >
+	    <id column="tsi_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsi_domain_id" property="domainId" jdbcType="INTEGER" />
+	  	<result column="tsi_intf_name" property="intfName" jdbcType="VARCHAR" />
+	  	<result column="tsi_request_timeout" property="requestTimeout" jdbcType="INTEGER" />
+	  	<result column="tsi_request_url" property="requestUrl" jdbcType="VARCHAR" />
+	  	<result column="tsi_request_method" property="requestMethod" jdbcType="TINYINT" />
+	  	<result column="tsi_invoke_type" property="invokeType" jdbcType="TINYINT" />
+	  	<result column="tsi_invoke_receipt" property="invokeReceipt" jdbcType="TINYINT" />
+	  	<result column="tsi_status" property="status" jdbcType="TINYINT" />
+	  	<result column="tsi_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsi_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsi_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsi_update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="tsi_update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsi_is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,domain_id,intf_name,request_timeout,request_url,request_method,invoke_type,invoke_receipt,status,remark,create_by,create_on,update_by,update_on,is_deleted
+	</sql>
+  	<sql id="Base_Column_List_SysInterface" >
+  		tsi.id id,tsi.domain_id domain_id,tsi.intf_name intf_name,tsi.request_timeout request_timeout,tsi.request_url request_url,tsi.request_method request_method,tsi.invoke_type invoke_type,tsi.invoke_receipt invoke_receipt,tsi.status status,tsi.remark remark,tsi.create_by create_by,tsi.create_on create_on,tsi.update_by update_by,tsi.update_on update_on,tsi.is_deleted is_deleted
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+	<sql id="Base_Column_List_SysDomain" >
+  		tsd.id tsd_id,tsd.domain_code tsd_domain_code,tsd.domain_name tsd_domain_name,tsd.api_secret tsd_api_secret,tsd.domain_url tsd_domain_url,tsd.status tsd_status,tsd.remark tsd_remark,tsd.op_by tsd_op_by,tsd.op_on tsd_op_on
+	</sql>
+	
+	<sql id="Base_Column_List_SysInterfaceTrigger" >
+  		tsit.id tsit_id,tsit.interface_id tsit_interface_id,tsit.trigger_id tsit_trigger_id,tsit.create_by tsit_create_by,tsit.create_on tsit_create_on,tsit.update_by tsit_update_by,tsit.update_on tsit_update_on
+	</sql>
+	
+	<resultMap id="ResultMap_WithDomain" type="cn.integriti.center.biz.sys.domain.SysInterface" extends="BaseResultMap">
+	  	<association property="sysDomain" columnPrefix="tsd_" resultMap="cn.integriti.center.biz.sys.dao.SysDomainMapper.BaseResultMap"></association>
+    </resultMap>
+    
+		 <!-- 通过实体参数查询 -->
+ 	<sql id="Condition_findByQueryParam">
+	  	<if test="queryParam!=null">
+	  		where 1=1
+	  		<bind name="j" value="queryParam.param"/>
+	  		<if test="j!=null">
+	  			<if test="j.intfName!=null and j.intfName!=''">
+	  				and tsi.intf_name like concat('%',#{j.intfName},'%')
+	  			</if>
+	  			<if test="j.domainId!=null">
+	  				and tsi.domain_id=${j.domainId}
+	  			</if>
+	  		</if>
+	  	</if>
+  	</sql>
+  	
+  	<sql id="Condition_findTriggerByQueryParam">
+	  	<if test="queryParam!=null">
+	  		where 1=1
+	  		<bind name="j" value="queryParam.param"/>
+	  		<if test="j!=null">
+	  			<if test="j.id !=null and j.id !=''">
+	  				and tsi.id = #{j.id}
+	  			</if>
+	  		</if>
+	  	</if>
+  	</sql>
+	
+	<select id="findByQueryParam" resultMap="ResultMap_WithDomain">
+	  	select 
+	  	<include refid="Base_Column_List_SysInterface"></include>,
+	  	<include refid="Base_Column_List_SysDomain"></include>,
+	  	count(tsit.id) as count_trigger
+	  	from  t_sys_interface tsi 
+		LEFT JOIN t_sys_domain tsd on tsd.id = tsi.domain_id
+		LEFT JOIN t_sys_interface_trigger tsit on tsi.id = tsit.interface_id
+	  	<include refid="Condition_findByQueryParam"></include>
+	  	GROUP BY tsi.id 
+	  	order by tsi.id asc limit ${queryParam.start},${queryParam.limit}
+   </select>
+   
+    <select id="countByQueryParam" resultType="long">
+	  	select count(DISTINCT tsi.id) from  t_sys_interface tsi 
+		LEFT JOIN t_sys_domain tsd on tsd.id = tsi.domain_id
+		LEFT JOIN t_sys_interface_trigger tsit on tsi.id = tsit.interface_id
+	  	<include refid="Condition_findByQueryParam"></include>
+    </select>
+    
+     <select id="findTriggerByInterface" resultMap="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper.ResultMap_WithTrigger">
+        select 
+        <include refid="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper.Base_Column_List_SysJobTrigger"></include>,
+        <include refid="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper.Base_Column_List_SysJob"></include>
+    	from t_sys_interface tsi 
+		LEFT JOIN  t_sys_interface_trigger tsit on tsit.interface_id = tsi.id 
+		LEFT JOIN  t_sys_job_trigger tsjt  on tsjt.id = tsit.trigger_id
+		LEFT JOIN  t_sys_job tsj on tsj.id = tsjt.job_id
+		<include refid="Condition_findTriggerByQueryParam"></include>
+    </select>
+    
+    <select id="findByTriggerId" resultMap="BaseResultMap">
+    	select tsi.* from t_sys_interface tsi,t_sys_interface_trigger tsit  where 
+		tsi.id=tsit.interface_id and tsit.trigger_id=${triggerId}
+		<if test="statusList!=null">
+			and tsi.status in
+			<foreach collection="statusList" item="status" open="(" separator="," close=")">
+				${status}
+			</foreach>
+		</if>
+    </select>
+</mapper>

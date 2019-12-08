@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysHttpJobMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysHttpJob" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="group_id" property="groupId" jdbcType="INTEGER" />
+	  	<result column="name" property="name" jdbcType="VARCHAR" />
+	  	<result column="expression" property="expression" jdbcType="VARCHAR" />
+	  	<result column="url" property="url" jdbcType="VARCHAR" />
+	  	<result column="status" property="status" jdbcType="INTEGER" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysHttpJob" type="cn.integriti.center.biz.sys.domain.SysHttpJob" >
+	    <id column="tshj_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tshj_group_id" property="groupId" jdbcType="INTEGER" />
+	  	<result column="tshj_name" property="name" jdbcType="VARCHAR" />
+	  	<result column="tshj_expression" property="expression" jdbcType="VARCHAR" />
+	  	<result column="tshj_url" property="url" jdbcType="VARCHAR" />
+	  	<result column="tshj_status" property="status" jdbcType="INTEGER" />
+	  	<result column="tshj_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tshj_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tshj_op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,group_id,name,expression,url,status,remark,create_on,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysHttpJob" >
+  		tshj.id tshj_id,tshj.group_id tshj_group_id,tshj.name tshj_name,tshj.expression tshj_expression,tshj.url tshj_url,tshj.status tshj_status,tshj.remark tshj_remark,tshj.create_on tshj_create_on,tshj.op_on tshj_op_on
+	</sql>
+	
+	<!-- 系统自定义 -->
+	<!-- 实体参数查询结果[START] -->
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysHttpJob" extends="BaseResultMap_SysHttpJob">
+		
+	</resultMap>
+
+	<sql id="Condition_FindByQueryParam">
+		<if test="queryParam.param!=null">
+			<bind name="p" value="queryParam.param"/>
+			<if test="p.id!=null ">
+		    	and tshj.id=#{p.id}
+		    </if>
+			<if test="p.groupId!=null ">
+		    	and tshj.group_id=#{p.groupId}
+		    </if>
+			<if test="p.name!=null and p.name!=''">
+		    	and tshj.name like #{p.name}
+		    </if>
+			<if test="p.expression!=null and p.expression!=''">
+		    	and tshj.expression like #{p.expression}
+		    </if>
+			<if test="p.url!=null and p.url!=''">
+		    	and tshj.url like #{p.url}
+		    </if>
+			<if test="p.status!=null ">
+		    	and tshj.status=#{p.status}
+		    </if>
+			<if test="p.remark!=null and p.remark!=''">
+		    	and tshj.remark like #{p.remark}
+		    </if>
+			<if test="p.createOn!=null ">
+		    	and tshj.create_on=#{p.createOn}
+		    </if>
+			<if test="p.opOn!=null ">
+		    	and tshj.op_on=#{p.opOn}
+		    </if>
+		</if>
+		<!--
+		<bind name="rp" value="queryParam.ruleParam" />
+		<include refid="org.mybatis.hbatis.orm.mapper.HbatisMapper.RuleParam"/>
+		-->
+	</sql>
+	<select id="findByQueryParam" resultMap="ResultMap_FindByQueryParam">
+		select
+		<include refid="Base_Column_List_SysHttpJob"></include>
+		from t_sys_http_job tshj where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+		<if test="queryParam.sortOrders!=null and queryParam.sortOrders.size() gt 0">
+			order by 
+			<foreach collection="queryParam.sortOrders" item="item" separator=",">
+				${item.sortField.sqlColumn} ${item.sortType}
+			</foreach>
+		</if>
+		<if test="queryParam.limit gt 0">
+	  		limit ${queryParam.start},${queryParam.limit}
+	  	</if>
+	</select>
+	<select id="countByQueryParam" resultType="long">
+		select count(1) from t_sys_http_job tshj where 1=1
+		<include refid="Condition_FindByQueryParam"></include>
+	</select>
+	
+	<!-- 实体参数查询结果[END] -->
+	<!-- 用户自定义 -->
+	
+</mapper>

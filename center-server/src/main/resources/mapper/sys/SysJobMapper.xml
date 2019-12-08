@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysJobMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysJob" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="group_id" property="groupId" jdbcType="INTEGER" />
+	  	<result column="job_name" property="jobName" jdbcType="VARCHAR" />
+	  	<result column="job_type" property="jobType" jdbcType="TINYINT" />
+	  	<result column="job_class" property="jobClass" jdbcType="VARCHAR" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysJob" type="cn.integriti.center.biz.sys.domain.SysJob" >
+	    <id column="tsj_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsj_group_id" property="groupId" jdbcType="INTEGER" />
+	  	<result column="tsj_job_name" property="jobName" jdbcType="VARCHAR" />
+	  	<result column="tsj_job_type" property="jobType" jdbcType="TINYINT" />
+	  	<result column="tsj_job_class" property="jobClass" jdbcType="VARCHAR" />
+	  	<result column="tsj_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsj_create_by" property="createBy" jdbcType="INTEGER" />
+	  	<result column="tsj_create_on" property="createOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsj_update_by" property="updateBy" jdbcType="INTEGER" />
+	  	<result column="tsj_update_on" property="updateOn" jdbcType="TIMESTAMP" />
+	  	<result column="tsj_is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,group_id,job_name,job_type,job_class,remark,create_by,create_on,update_by,update_on,is_deleted
+	</sql>
+  	<sql id="Base_Column_List_SysJob" >
+  		tsj.id id,tsj.group_id group_id,tsj.job_name job_name,tsj.job_type job_type,tsj.job_class job_class,tsj.remark remark,tsj.create_by create_by,tsj.create_on create_on,tsj.update_by update_by,tsj.update_on update_on,tsj.is_deleted is_deleted
+	</sql>
+	
+	<!-- <sql id="Base_Column_List_SysJobTrigger" >
+  		tsjt.id tsjt_id,tsjt.job_id tsjt_job_id,tsjt.trigger_name tsjt_trigger_name,tsjt.priority tsjt_priority,tsjt.cron_expression tsjt_cron_expression,tsjt.remark tsjt_remark,tsjt.create_by tsjt_create_by,tsjt.create_on tsjt_create_on,tsjt.update_by tsjt_update_by,tsjt.update_on tsjt_update_on,tsjt.is_deleted tsjt_is_deleted
+	</sql> -->
+	
+	<sql id="Base_Column_List_SysJobGroup" >
+  		tsjg.id tsjg_id,tsjg.group_name tsjg_group_name,tsjg.remark tsjg_remark,tsjg.create_by tsjg_create_by,tsjg.create_on tsjg_create_on,tsjg.update_by tsjg_update_by,tsjg.update_on tsjg_update_on,tsjg.is_deleted tsjg_is_deleted
+	</sql>
+	
+	<!-- 自定义内容 -->
+
+ <resultMap id="ResultMap_WithGroup" type="cn.integriti.center.biz.sys.domain.SysJob" extends="BaseResultMap">
+  	<association property="sysJobGroup" columnPrefix="tsjg_" resultMap="cn.integriti.center.biz.sys.dao.SysJobGroupMapper.BaseResultMap"></association>
+  </resultMap>
+
+<!-- 动态update公用抽取的列值-->
+	<sql id="dymicset">
+		  <trim suffixOverrides=",">
+	        	<if test="sysJob.jobName!=null">JOB_NAME = #{sysJob.jobName,jdbcType=VARCHAR},</if>
+	        	<if test="sysJob.jobType!=null">JOB_TYPE = #{sysJob.jobType,jdbcType=TINYINT},</if>
+	        	<if test="sysJob.groupId!=null">GROUP_ID = #{sysJob.groupId,jdbcType=INTEGER},</if>
+	        	<if test="sysJob.remark!=null">REMARK = #{sysJob.remark,jdbcType=VARCHAR},</if>
+	        	<if test="sysJob.createBy!=null">CREATE_BY =#{sysJob.createBy,jdbcType=INTEGER}, </if>
+	  			<if test="sysJob.createOn!=null">CREATE_ON =#{sysJob.createOn,jdbcType=TIMESTAMP}, </if>
+	  			<if test="sysJob.jobClass!=null">JOB_CLASS =#{sysJob.jobClass,jdbcType=VARCHAR}, </if>
+	  			<if test="sysJob.isDeleted!=null">IS_DELETED =#{sysJob.isDeleted,jdbcType=TINYINT} </if>
+	   	  </trim>	
+	</sql>
+	
+  <update id="updateClause"  parameterType="cn.integriti.center.biz.sys.domain.SysJob">
+        update t_sys_job set <include refid="dymicset"/> where 
+       		id = #{sysJob.id} 
+	</update>
+  <!-- 通过实体参数查询 -->
+  <sql id="Condition_findByQueryParam">
+  	<if test="queryParam!=null">
+  		where 1=1
+  		<bind name="j" value="queryParam.param"/>
+  		<if test="j!=null">
+  			<if test="j.jobName!=null and j.jobName!=''">
+  				and ( tsj.job_name like concat('%',#{j.jobName},'%')
+  			</if>
+  		</if> 
+  		<if test="j.sysJobGroup!=null">
+  			<if test="j.sysJobGroup.groupName !=null and j.sysJobGroup.groupName !='' ">
+  				or tsjg.group_name like concat('%',#{j.sysJobGroup.groupName},'%'))
+  			</if>
+  		</if>
+  	</if>
+  </sql>
+
+  <select id="findByQueryParam" resultMap="ResultMap_WithGroup">
+  	select <include refid="Base_Column_List_SysJob"></include>,<include refid="Base_Column_List_SysJobGroup"></include>
+  	from t_sys_job tsj left join t_sys_job_group tsjg on tsj.group_id=tsjg.id
+  	<include refid="Condition_findByQueryParam"></include>
+  	order by tsj.id asc limit ${queryParam.start},${queryParam.limit}
+  </select>
+
+  
+   <select id="countByQueryParam" resultType="long">
+  	select count(1) from t_sys_job tsj left join t_sys_job_group tsjg on tsj.group_id=tsjg.id
+  	<include refid="Condition_findByQueryParam"></include>
+  </select>
+</mapper>

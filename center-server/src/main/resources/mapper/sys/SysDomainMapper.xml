@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.integriti.center.biz.sys.dao.SysDomainMapper" >
+	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysDomain" >
+	    <id column="id" property="id" jdbcType="INTEGER" />	
+	  	<result column="domain_code" property="domainCode" jdbcType="VARCHAR" />
+	  	<result column="domain_name" property="domainName" jdbcType="VARCHAR" />
+	  	<result column="api_secret" property="apiSecret" jdbcType="VARCHAR" />
+	  	<result column="domain_url" property="domainUrl" jdbcType="VARCHAR" />
+	  	<result column="status" property="status" jdbcType="TINYINT" />
+	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
+	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap_SysDomain" type="cn.integriti.center.biz.sys.domain.SysDomain" >
+	    <id column="tsd_id" property="id" jdbcType="INTEGER" />	
+	  	<result column="tsd_domain_code" property="domainCode" jdbcType="VARCHAR" />
+	  	<result column="tsd_domain_name" property="domainName" jdbcType="VARCHAR" />
+	  	<result column="tsd_api_secret" property="apiSecret" jdbcType="VARCHAR" />
+	  	<result column="tsd_domain_url" property="domainUrl" jdbcType="VARCHAR" />
+	  	<result column="tsd_status" property="status" jdbcType="TINYINT" />
+	  	<result column="tsd_remark" property="remark" jdbcType="VARCHAR" />
+	  	<result column="tsd_op_by" property="opBy" jdbcType="INTEGER" />
+	  	<result column="tsd_op_on" property="opOn" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+  		id,domain_code,domain_name,api_secret,domain_url,status,remark,op_by,op_on
+	</sql>
+  	<sql id="Base_Column_List_SysDomain" >
+  		tsd.id tsd_id,tsd.domain_code tsd_domain_code,tsd.domain_name tsd_domain_name,tsd.api_secret tsd_api_secret,tsd.domain_url tsd_domain_url,tsd.status tsd_status,tsd.remark tsd_remark,tsd.op_by tsd_op_by,tsd.op_on tsd_op_on
+	</sql>
+	
+	<!-- 自定义内容 -->
+	
+</mapper>
