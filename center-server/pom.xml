@@ -266,7 +266,7 @@
 						<id>default</id>
 						<phase>verify</phase>
 						<goals>
-							<goal>build</goal>
+							<!--<goal>build</goal>-->
 							<!-- <goal>push</goal> -->
 						</goals>
 					</execution>
