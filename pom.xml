@@ -29,7 +29,7 @@
 		<docker.server.id>ipark</docker.server.id>
 		<java.version>1.8</java.version>
 	</properties>
-	<!--发布到服务器需要 -->
+
 	<distributionManagement>
 		<repository>
 			<id>m2-releases</id>
@@ -46,7 +46,7 @@
 	</distributionManagement>
 	<repositories>
 		<repository>
-			<id>MyReleasesNexus</id>
+			<id>kunlong</id>
 			<url>http://www.kunlong.com:8081/repository/maven-releases/</url>
 			<releases>
 				<enabled>true</enabled>
@@ -58,7 +58,7 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>MySnapshotNexus</id>
+			<id>kunlongSnapshot</id>
 			<url>http://www.kunlong.com:8081/repository/maven-snapshots/</url>
 			<releases>
 				<enabled>true</enabled>
