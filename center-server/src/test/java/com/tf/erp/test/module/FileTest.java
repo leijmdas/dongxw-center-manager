@@ -2,10 +2,12 @@ package com.tf.erp.test.module;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Properties;
 
+import cn.integriti.center.api.service.SysUserApiService;
+import cn.integriti.center.biz.sys.service.SysUserService;
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.StorageClient;
 import org.csource.fastdfs.StorageServer;
@@ -17,8 +19,22 @@ import com.tf.erp.test.BaseTest;
 
 import cn.integriti.center.core.util.FastDFSHelper;
 import cn.integriti.center.core.util.FileHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class FileTest extends BaseTest {
+	@Autowired
+	SysUserService sysUserService;
+	@Test
+	public void testLogin() throws Exception {
+		sysUserService.checkPass(1,"admin","111111");
+	}
+
+	@Reference(lazy = true,version = "1.0.0")
+	SysUserApiService sysUserApiService;
+	@Test
+	public void testApiLogin() throws Exception {
+		sysUserApiService.checkPass(1,"admin","111111");
+	}
 
 	@Test
 	public void test4Upload() throws Exception {

@@ -256,7 +256,7 @@
 	</repositories>
 
 	<build>
-		<finalName>ipark-center</finalName>
+		<finalName>kl-center</finalName>
 		<plugins>
 			<plugin>
 				<groupId>com.spotify</groupId>
