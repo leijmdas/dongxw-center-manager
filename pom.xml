@@ -15,7 +15,7 @@
 		<groupId>cn.integriti.boot</groupId>
 		<artifactId>boot-parent</artifactId>
 		<version>2.1.0</version>
-		<relativePath />
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<modules>
 		<module>center-api</module>
@@ -29,8 +29,6 @@
 		<docker.server.id>ipark</docker.server.id>
 		<java.version>1.8</java.version>
 	</properties>
-
-	<!--发布到服务器需要 -->
 	<distributionManagement>
 		<repository>
 			<id>MyReleasesNexus</id>
@@ -58,33 +56,51 @@
 		<!--</snapshotRepository>-->
 
 	<!--</distributionManagement>-->
-	<!--<repositories>-->
+	<repositories>
+		<repository>
+			<id>kunlong</id>
+			<url>http://www.kunlong.com:8081/repository/maven-releases/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>kunlongSnapshot</id>
+			<url>http://www.kunlong.com:8081/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+
+		
 		<!--<repository>-->
-			<!--<id>MyReleasesNexus</id>-->
-			<!--<url>http://www.kunlong.com:8081/repository/maven-releases/</url>-->
-			<!--<releases>-->
-				<!--<enabled>true</enabled>-->
-				<!--<updatePolicy>always</updatePolicy>-->
-			<!--</releases>-->
+			<!--<id>nexus-snapshots</id>-->
 			<!--<snapshots>-->
 				<!--<enabled>true</enabled>-->
-				<!--<updatePolicy>always</updatePolicy>-->
 			<!--</snapshots>-->
+			<!--<url>http://third.integriti.cn:8081/repository/maven-snapshots/</url>-->
 		<!--</repository>-->
 		<!--<repository>-->
-			<!--<id>MySnapshotNexus</id>-->
-			<!--<url>http://www.kunlong.com:8081/repository/maven-snapshots/</url>-->
-			<!--<releases>-->
-				<!--<enabled>true</enabled>-->
-				<!--<updatePolicy>always</updatePolicy>-->
-			<!--</releases>-->
+			<!--<id>nexus-releases</id>-->
+			<!--<url>http://third.integriti.cn:8081/repository/maven-releases/</url>-->
+		<!--</repository>-->
+		<!--<repository>-->
+			<!--<id>spring-releases</id>-->
+			<!--<name>Spring Releases</name>-->
+			<!--<url>https://repo.spring.io/libs-release-local</url>-->
 			<!--<snapshots>-->
-				<!--<enabled>true</enabled>-->
-				<!--<updatePolicy>always</updatePolicy>-->
+				<!--<enabled>false</enabled>-->
 			<!--</snapshots>-->
 		<!--</repository>-->
-
-		<!---->
-
-	<!--</repositories>-->
+	</repositories>
 </project>
