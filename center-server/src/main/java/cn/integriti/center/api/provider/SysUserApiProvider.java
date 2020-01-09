@@ -43,7 +43,10 @@ public class SysUserApiProvider implements SysUserApiService {
 	@Override
 	public PageResult<SysUserDTO> query(SysUserQueryDTO qpDTO) {
 		cn.integriti.center.biz.sys.domain.SysUser.QueryParam qp = BeanMapper.getInstance().map(qpDTO, cn.integriti.center.biz.sys.domain.SysUser.QueryParam.class);
+		//System.out.println(qpDTO);
+		//qp.setSortBys(qpDTO.getOrderBys());
 		List<SysUser> list = this.service.findByQueryParam(qp);
+
 		long total = this.service.countByQueryParam(qp);
 		
 		PageResult<SysUserDTO> page = new PageResult<SysUserDTO>();

@@ -91,10 +91,16 @@
   	left join t_sys_role r on(ur.role_id=r.id)
 	where 1=1
   	<include refid="Condition_findByQueryParam"></include>
-  	order by u.id desc,u.org_id asc,u.op_on desc limit ${queryParam.start},${queryParam.limit}
-  	
+	  <!--<if test="queryParam.sortOrders!=null and queryParam.sortOrders.size() gt 0">-->
+		  <!--order by-->
+		  <!--<foreach collection="queryParam.sortOrders" item="item" separator=",">-->
+			  <!--${item.sortField.sqlColumn} ${item.sortType}-->
+		  <!--</foreach>-->
+	  <!--</if> limit ${queryParam.start},${queryParam.limit}-->
+      order by u.username asc,u.org_id asc,u.op_on desc
+
   </select>
-  <select id="countByQueryParam" resultType="long">
+	<select id="countByQueryParam" resultType="long">
   	select count(u.id) from t_sys_user u 
   	left join t_sys_org o on(u.org_id=o.id) 
   	left join t_sys_user_role ur on(ur.user_id=u.id) 

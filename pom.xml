@@ -42,24 +42,11 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<!--<distributionManagement>-->
-		<!--<repository>-->
-			<!--<id>m2-releases</id>-->
-			<!--<url>-->
-				<!--http://maven-host:8081/nexus/content/repositories/releases/-->
-			<!--</url>-->
-		<!--</repository>-->
-		<!--<snapshotRepository>-->
-			<!--<id>m2-snapshots</id>-->
-			<!--<name>nexus snapshots</name>-->
-			<!--<url>http://maven-host:8081/nexus/content/repositories/snapshots/</url>-->
-		<!--</snapshotRepository>-->
 
-	<!--</distributionManagement>-->
 	<repositories>
 		<repository>
 			<id>kunlong</id>
-			<url>http://www.kunlong.com:8081/repository/maven-releases/</url>
+			<url>http://122.51.227.25:8081/repository/maven-releases/</url>
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
@@ -71,7 +58,7 @@
 		</repository>
 		<repository>
 			<id>kunlongSnapshot</id>
-			<url>http://www.kunlong.com:8081/repository/maven-snapshots/</url>
+			<url>http://122.51.227.25:8081/repository/maven-snapshots/</url>
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
@@ -83,24 +70,6 @@
 		</repository>
 
 		
-		<!--<repository>-->
-			<!--<id>nexus-snapshots</id>-->
-			<!--<snapshots>-->
-				<!--<enabled>true</enabled>-->
-			<!--</snapshots>-->
-			<!--<url>http://third.integriti.cn:8081/repository/maven-snapshots/</url>-->
-		<!--</repository>-->
-		<!--<repository>-->
-			<!--<id>nexus-releases</id>-->
-			<!--<url>http://third.integriti.cn:8081/repository/maven-releases/</url>-->
-		<!--</repository>-->
-		<!--<repository>-->
-			<!--<id>spring-releases</id>-->
-			<!--<name>Spring Releases</name>-->
-			<!--<url>https://repo.spring.io/libs-release-local</url>-->
-			<!--<snapshots>-->
-				<!--<enabled>false</enabled>-->
-			<!--</snapshots>-->
-		<!--</repository>-->
+
 	</repositories>
 </project>
