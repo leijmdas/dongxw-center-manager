@@ -9,7 +9,6 @@ import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Result;
 import com.alibaba.dubbo.rpc.RpcException;
-import com.alibaba.dubbo.rpc.RpcResult;
 
 import app.support.exception.AppException;
 import cn.integriti.center.core.exception.BusinessException;
@@ -26,17 +25,17 @@ public class DubboRequestFilter implements com.alibaba.dubbo.rpc.Filter {
 			Result r =  invoker.invoke(invocation);
 			
 			
-			return wrapException(r);
+			return r;
 		} finally {
 			logger.debug("[结束]服务{}.耗时:{} ms",startTime,System.currentTimeMillis() - startTime);
 		}
 		
 	}
 
-	private RpcResult wrapException(Result r) {
+	private RpcException wrapException(Result r) {
 		Throwable ex = r.getException();
 		if(ex == null) {
-			return (RpcResult)r;
+			return (RpcException)r;
 		}
 		logger.error("服务异常",ex);
 		//统一异常
@@ -55,9 +54,9 @@ public class DubboRequestFilter implements com.alibaba.dubbo.rpc.Filter {
 			apiEx = new AppException("0",ex.getMessage(),ex);
 		}
 		RpcException rpcException = new RpcException(RpcException.BIZ_EXCEPTION,ex.getMessage(),apiEx);
-		RpcResult rpcResult = new RpcResult();
-		rpcResult.setException(rpcException);
-		return rpcResult;
+//		RpcResult rpcResult = new RpcResult();
+//		rpcResult.setException(rpcException);
+		return rpcException;
 	}
 
 }
