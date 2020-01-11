@@ -28,7 +28,7 @@
 		<project.version>0.0.1-SNAPSHOT</project.version>
 
 		<dubbo.boot.version>2.7.5</dubbo.boot.version>
-		<zookeeper.version>3.4.7</zookeeper.version>
+		<zookeeper.version>3.4.14</zookeeper.version>
 		<zkclient.version>0.1</zkclient.version>
 		<curator.version>4.0.1</curator.version>
 
