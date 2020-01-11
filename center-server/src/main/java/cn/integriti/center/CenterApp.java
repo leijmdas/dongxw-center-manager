@@ -1,6 +1,6 @@
 package cn.integriti.center;
+
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +13,10 @@ import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 @ComponentScan(basePackages={"cn.integriti"})
 @EnableDubbo
 @ImportResource(locations= {"classpath:/dubbo-provider.xml"})
-public class Application {
-	
+public class CenterApp {
+
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(CenterApp.class, args);
 //		SpringApplication app = new SpringApplication(Application.class);
 //		app.setWebApplicationType(WebApplicationType.NONE);
 //		app.run(args);

@@ -17,21 +17,28 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<docker.image.prefix>springcloud</docker.image.prefix>
+		<mybatis.version>3.4.4</mybatis.version>
+		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+		<jersey.version>2.26-b06</jersey.version>
+		<hbatis.version>2.3.1</hbatis.version>
+		<project.version>0.0.1-SNAPSHOT</project.version>
+
+		<dubbo.boot.version>2.7.5</dubbo.boot.version>
+		<zookeeper.version>3.4.7</zookeeper.version>
+		<zkclient.version>0.1</zkclient.version>
+		<curator.version>4.0.1</curator.version>
+
+		<start-class>cn.integriti.center.CenterApp</start-class>
+
+	</properties>
+
+
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-context</artifactId>
-		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.alibaba.boot</groupId>-->
-			<!--<artifactId>dubbo-spring-boot-starter</artifactId>-->
-			<!--<version>0.2.0</version>-->
-		<!--</dependency>-->
-		<dependency>
-			<groupId>org.apache.dubbo</groupId>
-			<artifactId>dubbo-spring-boot-starter</artifactId>
-			<version>2.7.5</version>
-		</dependency>
+
 		<dependency>
 			<groupId>app</groupId>
 			<artifactId>app-support</artifactId>
@@ -193,12 +200,6 @@
 			<artifactId>fastdfs-client-java</artifactId>
 			<version>1.27-SNAPSHOT</version>
 		</dependency>
-		<!--&lt;!&ndash; https://mvnrepository.com/artifact/org.csource/fastdfs-client-java &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.csource</groupId>-->
-			<!--<artifactId>fastdfs-client-java</artifactId>-->
-			<!--<version>1.27-RELEASE</version>-->
-		<!--</dependency>-->
 
 		<dependency>
 			<groupId>cn.integriti</groupId>
@@ -206,23 +207,46 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-context</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-spring-boot-starter</artifactId>
+			<version>${dubbo.boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>${zookeeper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>${zkclient.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-framework</artifactId>
+			<version>${curator.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-recipes</artifactId>
+			<version>${curator.version}</version>
+		</dependency>
+
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-actuator</artifactId>-->
+			<!--<version>2.2.2.RELEASE</version>-->
+		<!--</dependency>-->
+
 	</dependencies>
 
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>cn.integriti.center.Application</start-class>
-		<java.version>1.8</java.version>
-		<docker.image.prefix>springcloud</docker.image.prefix>
-		<mybatis.version>3.4.4</mybatis.version>
-		<mybatis-spring.version>1.3.1</mybatis-spring.version>
-		<jersey.version>2.26-b06</jersey.version>
-		<hbatis.version>2.3.1</hbatis.version>
-		<project.version>0.0.1-SNAPSHOT</project.version>
-	</properties>
 
 	<repositories>
 		<repository>
