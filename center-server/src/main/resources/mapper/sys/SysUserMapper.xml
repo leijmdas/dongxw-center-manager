@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysUserMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysUser" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysUserMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysUser" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="username" property="username" jdbcType="VARCHAR" />
 	  	<result column="passwd" property="passwd" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
 	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
 	  	<result column="ext_params" property="extParams" jdbcType="VARCHAR" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysUser" type="cn.integriti.center.biz.sys.domain.SysUser" >
+    <resultMap id="BaseResultMap_SysUser" type="cn.kunlong.center.biz.sys.domain.SysUser" >
 	    <id column="tsu_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsu_username" property="username" jdbcType="VARCHAR" />
 	  	<result column="tsu_passwd" property="passwd" jdbcType="VARCHAR" />
@@ -44,7 +44,7 @@
 	
 	<!-- 系统自定义 -->
 	<!-- 实体参数查询结果[START] -->
-	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysUser" extends="BaseResultMap_SysUser">
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.kunlong.center.biz.sys.domain.SysUser" extends="BaseResultMap_SysUser">
 		
 	</resultMap>
 
@@ -76,9 +76,9 @@
   		
   	</if>
   </sql>
-  <resultMap id="ResultMap_WithOrg_Role" type="cn.integriti.center.biz.sys.domain.SysUser" extends="BaseResultMap">
-  	<association property="sysOrg" columnPrefix="o_" resultMap="cn.integriti.center.biz.sys.dao.SysOrgMapper.BaseResultMap"></association>
-  	<collection property="sysRoles" columnPrefix="r_" resultMap="cn.integriti.center.biz.sys.dao.SysRoleMapper.BaseResultMap"></collection>
+  <resultMap id="ResultMap_WithOrg_Role" type="cn.kunlong.center.biz.sys.domain.SysUser" extends="BaseResultMap">
+  	<association property="sysOrg" columnPrefix="o_" resultMap="cn.kunlong.center.biz.sys.dao.SysOrgMapper.BaseResultMap"></association>
+  	<collection property="sysRoles" columnPrefix="r_" resultMap="cn.kunlong.center.biz.sys.dao.SysRoleMapper.BaseResultMap"></collection>
   	
   </resultMap>
   <select id="findByQueryParam" resultMap="ResultMap_WithOrg_Role">

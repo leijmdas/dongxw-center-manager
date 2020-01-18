@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysInterfaceParamMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysInterfaceParam" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysInterfaceParamMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysInterfaceParam" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="interface_id" property="interfaceId" jdbcType="INTEGER" />
 	  	<result column="param_key" property="paramKey" jdbcType="VARCHAR" />
@@ -11,7 +11,7 @@
 	  	<result column="update_by" property="updateBy" jdbcType="INTEGER" />
 	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysInterfaceParam" type="cn.integriti.center.biz.sys.domain.SysInterfaceParam" >
+    <resultMap id="BaseResultMap_SysInterfaceParam" type="cn.kunlong.center.biz.sys.domain.SysInterfaceParam" >
 	    <id column="tsip_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsip_interface_id" property="interfaceId" jdbcType="INTEGER" />
 	  	<result column="tsip_param_key" property="paramKey" jdbcType="VARCHAR" />

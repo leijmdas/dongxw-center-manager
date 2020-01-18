@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysDomainMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysDomain" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysDomainMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysDomain" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="domain_code" property="domainCode" jdbcType="VARCHAR" />
 	  	<result column="domain_name" property="domainName" jdbcType="VARCHAR" />
@@ -12,7 +12,7 @@
 	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
 	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysDomain" type="cn.integriti.center.biz.sys.domain.SysDomain" >
+    <resultMap id="BaseResultMap_SysDomain" type="cn.kunlong.center.biz.sys.domain.SysDomain" >
 	    <id column="tsd_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsd_domain_code" property="domainCode" jdbcType="VARCHAR" />
 	  	<result column="tsd_domain_name" property="domainName" jdbcType="VARCHAR" />

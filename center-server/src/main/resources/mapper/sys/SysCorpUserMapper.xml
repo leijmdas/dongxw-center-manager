@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysCorpUserMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysCorpUser" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysCorpUserMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysCorpUser" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="user_id" property="userId" jdbcType="INTEGER" />
 	  	<result column="org_id" property="orgId" jdbcType="INTEGER" />
@@ -9,7 +9,7 @@
 	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
 	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysCorpUser" type="cn.integriti.center.biz.sys.domain.SysCorpUser" >
+    <resultMap id="BaseResultMap_SysCorpUser" type="cn.kunlong.center.biz.sys.domain.SysCorpUser" >
 	    <id column="tscu_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tscu_user_id" property="userId" jdbcType="INTEGER" />
 	  	<result column="tscu_org_id" property="orgId" jdbcType="INTEGER" />
@@ -26,7 +26,7 @@
 	
 	<!-- 系统自定义 -->
 	<!-- 实体参数查询结果[START] -->
-	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysCorpUser" extends="BaseResultMap_SysCorpUser">
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.kunlong.center.biz.sys.domain.SysCorpUser" extends="BaseResultMap_SysCorpUser">
 		
 	</resultMap>
 

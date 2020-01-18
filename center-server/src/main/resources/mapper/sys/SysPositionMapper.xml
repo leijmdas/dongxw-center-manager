@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysPositionMapper" >
-  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysPosition" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysPositionMapper" >
+  <resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysPosition" >
     <id column="id" property="id" jdbcType="INTEGER" />	
   	<result column="position_name" property="positionName" jdbcType="VARCHAR" />
   	<result column="status" property="status" jdbcType="TINYINT" />
@@ -46,7 +46,7 @@
   		
   	</if>
   </sql>
-  <resultMap id="ResultMap_WithParent" type="cn.integriti.center.biz.sys.domain.SysPosition">
+  <resultMap id="ResultMap_WithParent" type="cn.kunlong.center.biz.sys.domain.SysPosition">
   	<id column="p_id" property="id" jdbcType="INTEGER" />	
   	<result column="p_position_name" property="positionName" jdbcType="VARCHAR" />
   	<result column="p_status" property="status" jdbcType="TINYINT" />
@@ -57,7 +57,7 @@
   	<result column="p_op_by" property="opBy" jdbcType="INTEGER" />
   	<result column="p_op_on" property="opOn" jdbcType="TIMESTAMP" />
   	<result column="p_org_id" property="orgId" jdbcType="INTEGER" />
-  	<association property="sysOrg" columnPrefix="o_" resultMap="cn.integriti.center.biz.sys.dao.SysOrgMapper.BaseResultMap"></association>
+  	<association property="sysOrg" columnPrefix="o_" resultMap="cn.kunlong.center.biz.sys.dao.SysOrgMapper.BaseResultMap"></association>
   	
   </resultMap>
   <select id="findByQueryParam" resultMap="ResultMap_WithParent">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysInterfaceMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysInterface" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysInterfaceMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysInterface" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="domain_id" property="domainId" jdbcType="INTEGER" />
 	  	<result column="intf_name" property="intfName" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
 	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
 	  	<result column="count_trigger" property="countTrigger" jdbcType="INTEGER" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysInterface" type="cn.integriti.center.biz.sys.domain.SysInterface" >
+    <resultMap id="BaseResultMap_SysInterface" type="cn.kunlong.center.biz.sys.domain.SysInterface" >
 	    <id column="tsi_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsi_domain_id" property="domainId" jdbcType="INTEGER" />
 	  	<result column="tsi_intf_name" property="intfName" jdbcType="VARCHAR" />
@@ -53,8 +53,8 @@
   		tsit.id tsit_id,tsit.interface_id tsit_interface_id,tsit.trigger_id tsit_trigger_id,tsit.create_by tsit_create_by,tsit.create_on tsit_create_on,tsit.update_by tsit_update_by,tsit.update_on tsit_update_on
 	</sql>
 	
-	<resultMap id="ResultMap_WithDomain" type="cn.integriti.center.biz.sys.domain.SysInterface" extends="BaseResultMap">
-	  	<association property="sysDomain" columnPrefix="tsd_" resultMap="cn.integriti.center.biz.sys.dao.SysDomainMapper.BaseResultMap"></association>
+	<resultMap id="ResultMap_WithDomain" type="cn.kunlong.center.biz.sys.domain.SysInterface" extends="BaseResultMap">
+	  	<association property="sysDomain" columnPrefix="tsd_" resultMap="cn.kunlong.center.biz.sys.dao.SysDomainMapper.BaseResultMap"></association>
     </resultMap>
     
 		 <!-- 通过实体参数查询 -->
@@ -105,10 +105,10 @@
 	  	<include refid="Condition_findByQueryParam"></include>
     </select>
     
-     <select id="findTriggerByInterface" resultMap="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper.ResultMap_WithTrigger">
+     <select id="findTriggerByInterface" resultMap="cn.kunlong.center.biz.sys.dao.SysJobTriggerMapper.ResultMap_WithTrigger">
         select 
-        <include refid="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper.Base_Column_List_SysJobTrigger"></include>,
-        <include refid="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper.Base_Column_List_SysJob"></include>
+        <include refid="cn.kunlong.center.biz.sys.dao.SysJobTriggerMapper.Base_Column_List_SysJobTrigger"></include>,
+        <include refid="cn.kunlong.center.biz.sys.dao.SysJobTriggerMapper.Base_Column_List_SysJob"></include>
     	from t_sys_interface tsi 
 		LEFT JOIN  t_sys_interface_trigger tsit on tsit.interface_id = tsi.id 
 		LEFT JOIN  t_sys_job_trigger tsjt  on tsjt.id = tsit.trigger_id

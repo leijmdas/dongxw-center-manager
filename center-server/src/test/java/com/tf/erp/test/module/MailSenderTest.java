@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tf.erp.test.BaseTest;
 
-import cn.integriti.center.biz.sys.service.impl.SysEventServiceImpl.MailSender;
+import cn.kunlong.center.biz.sys.service.impl.SysEventServiceImpl.MailSender;
 
 public class MailSenderTest extends BaseTest{
 

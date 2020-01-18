@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysOrgMapper" >
-  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysOrg" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysOrgMapper" >
+  <resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysOrg" >
     <id column="id" property="id" jdbcType="INTEGER" />	
   	<result column="org_name" property="orgName" jdbcType="VARCHAR" />
   	<result column="pid" property="pid" jdbcType="INTEGER" />
@@ -45,7 +45,7 @@
   		
   	</if>
   </sql>
-  <resultMap id="ResultMap_WithParent" type="cn.integriti.center.biz.sys.domain.SysOrg">
+  <resultMap id="ResultMap_WithParent" type="cn.kunlong.center.biz.sys.domain.SysOrg">
   	<id column="o_id" property="id" jdbcType="INTEGER" />	
   	<result column="o_org_name" property="orgName" jdbcType="VARCHAR" />
   	<result column="o_pid" property="pid" jdbcType="INTEGER" />

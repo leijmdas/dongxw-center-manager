@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysResourceMapper" >
-  <resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysResource" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysResource" >
     <id column="id" property="id" jdbcType="INTEGER" />	
   	<result column="group_id" property="groupId" jdbcType="INTEGER" />
   	<result column="res_name" property="resName" jdbcType="VARCHAR" />
@@ -27,8 +27,8 @@
   	sr.create_by sr_create_by,sr.create_on sr_create_on,sr.op_by sr_op_by,sr.op_on sr_op_on
   </sql>
 
-  <resultMap type="cn.integriti.center.biz.sys.domain.SysResource" id="ResultMap_WithGroup" extends="BaseResultMap">
-	<association property="sysResourceGroup" columnPrefix="srg_" resultMap="cn.integriti.center.biz.sys.dao.SysResourceGroupMapper.BaseResultMap"></association>
+  <resultMap type="cn.kunlong.center.biz.sys.domain.SysResource" id="ResultMap_WithGroup" extends="BaseResultMap">
+	<association property="sysResourceGroup" columnPrefix="srg_" resultMap="cn.kunlong.center.biz.sys.dao.SysResourceGroupMapper.BaseResultMap"></association>
   </resultMap>
   
   <!--  -->
@@ -65,7 +65,7 @@
   	<include refid="Condition_findByQueryParam"></include>
   </select>
   <select id="findByIdsWithGroup" parameterType="list" resultMap="ResultMap_WithGroup">
-  	select tsr.*, <include refid="cn.integriti.center.biz.sys.dao.SysResourceGroupMapper.Base_Column_List_Group"></include>
+  	select tsr.*, <include refid="cn.kunlong.center.biz.sys.dao.SysResourceGroupMapper.Base_Column_List_Group"></include>
     from t_sys_resource tsr
     join t_sys_resource_group srg on tsr.group_id = srg.id
   	where tsr.id IN

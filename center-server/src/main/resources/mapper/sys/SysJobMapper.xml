@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysJobMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysJob" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysJobMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysJob" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="group_id" property="groupId" jdbcType="INTEGER" />
 	  	<result column="job_name" property="jobName" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
 	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
 	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysJob" type="cn.integriti.center.biz.sys.domain.SysJob" >
+    <resultMap id="BaseResultMap_SysJob" type="cn.kunlong.center.biz.sys.domain.SysJob" >
 	    <id column="tsj_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsj_group_id" property="groupId" jdbcType="INTEGER" />
 	  	<result column="tsj_job_name" property="jobName" jdbcType="VARCHAR" />
@@ -44,8 +44,8 @@
 	
 	<!-- 自定义内容 -->
 
- <resultMap id="ResultMap_WithGroup" type="cn.integriti.center.biz.sys.domain.SysJob" extends="BaseResultMap">
-  	<association property="sysJobGroup" columnPrefix="tsjg_" resultMap="cn.integriti.center.biz.sys.dao.SysJobGroupMapper.BaseResultMap"></association>
+ <resultMap id="ResultMap_WithGroup" type="cn.kunlong.center.biz.sys.domain.SysJob" extends="BaseResultMap">
+  	<association property="sysJobGroup" columnPrefix="tsjg_" resultMap="cn.kunlong.center.biz.sys.dao.SysJobGroupMapper.BaseResultMap"></association>
   </resultMap>
 
 <!-- 动态update公用抽取的列值-->
@@ -62,7 +62,7 @@
 	   	  </trim>	
 	</sql>
 	
-  <update id="updateClause"  parameterType="cn.integriti.center.biz.sys.domain.SysJob">
+  <update id="updateClause"  parameterType="cn.kunlong.center.biz.sys.domain.SysJob">
         update t_sys_job set <include refid="dymicset"/> where 
        		id = #{sysJob.id} 
 	</update>

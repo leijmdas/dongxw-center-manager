@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysHttpJobMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysHttpJob" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysHttpJobMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysHttpJob" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="group_id" property="groupId" jdbcType="INTEGER" />
 	  	<result column="name" property="name" jdbcType="VARCHAR" />
@@ -12,7 +12,7 @@
 	  	<result column="create_on" property="createOn" jdbcType="TIMESTAMP" />
 	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysHttpJob" type="cn.integriti.center.biz.sys.domain.SysHttpJob" >
+    <resultMap id="BaseResultMap_SysHttpJob" type="cn.kunlong.center.biz.sys.domain.SysHttpJob" >
 	    <id column="tshj_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tshj_group_id" property="groupId" jdbcType="INTEGER" />
 	  	<result column="tshj_name" property="name" jdbcType="VARCHAR" />
@@ -32,7 +32,7 @@
 	
 	<!-- 系统自定义 -->
 	<!-- 实体参数查询结果[START] -->
-	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysHttpJob" extends="BaseResultMap_SysHttpJob">
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.kunlong.center.biz.sys.domain.SysHttpJob" extends="BaseResultMap_SysHttpJob">
 		
 	</resultMap>
 

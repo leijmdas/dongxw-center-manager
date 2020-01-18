@@ -1,1 +1,1 @@
-dubboRequestFilter = cn.integriti.center.api.DubboRequestFilter
+dubboRequestFilter = cn.kunlong.center.api.DubboRequestFilter

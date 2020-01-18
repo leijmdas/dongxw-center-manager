@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @EnableAutoConfiguration
 @Configuration
-@ComponentScan(basePackages={"cn.integriti.center"})
+@ComponentScan(basePackages={"cn.kunlong.center"})
 public class Application {
 	
 	public static void println(Object obj){

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysDictMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysDict" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysDictMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysDict" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="corp_id" property="corpId" jdbcType="INTEGER" />
 	  	<result column="dict_name" property="dictName" jdbcType="VARCHAR" />
@@ -53,11 +53,11 @@
   	<include refid="Condition_findByQueryParam"></include>
   </select>
   
-  <resultMap type="cn.integriti.center.biz.sys.domain.SysDict" id="ResultMap_WithDetails" extends="BaseResultMap">
-  	<collection property="items"  columnPrefix="tsdd_" resultMap="cn.integriti.center.biz.sys.dao.SysDictDetailMapper.BaseResultMap"></collection>
+  <resultMap type="cn.kunlong.center.biz.sys.domain.SysDict" id="ResultMap_WithDetails" extends="BaseResultMap">
+  	<collection property="items"  columnPrefix="tsdd_" resultMap="cn.kunlong.center.biz.sys.dao.SysDictDetailMapper.BaseResultMap"></collection>
   </resultMap>
   <select id="findByCode" resultMap="ResultMap_WithDetails">
-  	select tsd.*,<include refid="cn.integriti.center.biz.sys.dao.SysDictDetailMapper.Base_Column_List_SysDictDetail"></include> from t_sys_dict tsd left join t_sys_dict_item tsdd on (tsd.id=tsdd.dict_id)
+  	select tsd.*,<include refid="cn.kunlong.center.biz.sys.dao.SysDictDetailMapper.Base_Column_List_SysDictDetail"></include> from t_sys_dict tsd left join t_sys_dict_item tsdd on (tsd.id=tsdd.dict_id)
   	where tsd.corp_id=${corpId} and tsd.dict_code=#{code} order by tsdd.order_num asc,tsdd.op_on desc
   </select>
 </mapper>

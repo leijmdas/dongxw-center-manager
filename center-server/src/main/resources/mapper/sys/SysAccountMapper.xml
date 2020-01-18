@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysAccountMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysAccount" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysAccountMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysAccount" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="login_name" property="loginName" jdbcType="VARCHAR" />
 	  	<result column="real_name" property="realName" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
 	  	<result column="op_on" property="opOn" jdbcType="TIMESTAMP" />
 	  	<result column="op_by" property="opBy" jdbcType="INTEGER" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysAccount" type="cn.integriti.center.biz.sys.domain.SysAccount" >
+    <resultMap id="BaseResultMap_SysAccount" type="cn.kunlong.center.biz.sys.domain.SysAccount" >
 	    <id column="tsa_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsa_login_name" property="loginName" jdbcType="VARCHAR" />
 	  	<result column="tsa_real_name" property="realName" jdbcType="VARCHAR" />
@@ -38,7 +38,7 @@
 	
 	<!-- 系统自定义 -->
 	<!-- 实体参数查询结果[START] -->
-	<resultMap id="ResultMap_FindByQueryParam" type="cn.integriti.center.biz.sys.domain.SysAccount" extends="BaseResultMap_SysAccount">
+	<resultMap id="ResultMap_FindByQueryParam" type="cn.kunlong.center.biz.sys.domain.SysAccount" extends="BaseResultMap_SysAccount">
 		
 	</resultMap>
 

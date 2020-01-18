@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysJobTriggerMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysJobTrigger" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysJobTriggerMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysJobTrigger" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="job_id" property="jobId" jdbcType="INTEGER" />
 	  	<result column="trigger_name" property="triggerName" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
 	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
 	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysJobTrigger" type="cn.integriti.center.biz.sys.domain.SysJobTrigger" >
+    <resultMap id="BaseResultMap_SysJobTrigger" type="cn.kunlong.center.biz.sys.domain.SysJobTrigger" >
 	    <id column="tsjt_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsjt_job_id" property="jobId" jdbcType="INTEGER" />
 	  	<result column="tsjt_trigger_name" property="triggerName" jdbcType="VARCHAR" />
@@ -53,11 +53,11 @@
   		tsd.id tsd_id,tsd.domain_code tsd_domain_code,tsd.domain_name tsd_domain_name,tsd.api_secret tsd_api_secret,tsd.domain_url tsd_domain_url,tsd.status tsd_status,tsd.remark tsd_remark,tsd.op_by tsd_op_by,tsd.op_on tsd_op_on
 	</sql>
 	
-   <resultMap id="ResultMap_WithTrigger" type="cn.integriti.center.biz.sys.domain.SysJobTrigger" extends="BaseResultMap">
-  	<association property="sysJob" columnPrefix="tsj_" resultMap="cn.integriti.center.biz.sys.dao.SysJobMapper.BaseResultMap"></association>
-  	<association property="sysInterfaceTrigger" columnPrefix="tsit_" resultMap="cn.integriti.center.biz.sys.dao.SysInterfaceTriggerMapper.BaseResultMap"></association>
-  	<association property="sysInterface" columnPrefix="tsi_" resultMap="cn.integriti.center.biz.sys.dao.SysInterfaceMapper.BaseResultMap"></association>
-  	<association property="sysDomain" columnPrefix="tsd_" resultMap="cn.integriti.center.biz.sys.dao.SysDomainMapper.BaseResultMap"></association>
+   <resultMap id="ResultMap_WithTrigger" type="cn.kunlong.center.biz.sys.domain.SysJobTrigger" extends="BaseResultMap">
+  	<association property="sysJob" columnPrefix="tsj_" resultMap="cn.kunlong.center.biz.sys.dao.SysJobMapper.BaseResultMap"></association>
+  	<association property="sysInterfaceTrigger" columnPrefix="tsit_" resultMap="cn.kunlong.center.biz.sys.dao.SysInterfaceTriggerMapper.BaseResultMap"></association>
+  	<association property="sysInterface" columnPrefix="tsi_" resultMap="cn.kunlong.center.biz.sys.dao.SysInterfaceMapper.BaseResultMap"></association>
+  	<association property="sysDomain" columnPrefix="tsd_" resultMap="cn.kunlong.center.biz.sys.dao.SysDomainMapper.BaseResultMap"></association>
   </resultMap>
 	
 	<!-- 动态update公用抽取的列值-->
@@ -88,7 +88,7 @@
 	       </trim>	
 	</sql>
 	
-	<update id="updateClause"  parameterType="cn.integriti.center.biz.sys.domain.SysJobTrigger">
+	<update id="updateClause"  parameterType="cn.kunlong.center.biz.sys.domain.SysJobTrigger">
         update t_sys_job_trigger set <include refid="dymicset"/> where 
        		id = #{sysJobTrigger.id} 
 	</update>
@@ -150,13 +150,13 @@
   
    
   <!-- 联合查询结果 -->
-  <resultMap type="cn.integriti.center.biz.sys.domain.SysJobTrigger$QuartzTrigger" id="ResultMap_QuartzTrigger">
+  <resultMap type="cn.kunlong.center.biz.sys.domain.SysJobTrigger$QuartzTrigger" id="ResultMap_QuartzTrigger">
   	<result column="trigger_state" property="triggerState" jdbcType="VARCHAR" />
 	<result column="prev_firetime" property="prevFireTime" jdbcType="TIMESTAMP" />
 	<result column="next_firetime" property="nextFireTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMap_WithQuartzTrigger" extends="BaseResultMap_SysJobTrigger" type="cn.integriti.center.biz.sys.domain.SysJobTrigger">
-		<association property="sysJob" resultMap="cn.integriti.center.biz.sys.dao.SysJobMapper.BaseResultMap_SysJob"></association>
+  <resultMap id="ResultMap_WithQuartzTrigger" extends="BaseResultMap_SysJobTrigger" type="cn.kunlong.center.biz.sys.domain.SysJobTrigger">
+		<association property="sysJob" resultMap="cn.kunlong.center.biz.sys.dao.SysJobMapper.BaseResultMap_SysJob"></association>
 		<association property="quartzTrigger" resultMap="ResultMap_QuartzTrigger"></association>
  </resultMap>
   <!-- 联合查询 -->

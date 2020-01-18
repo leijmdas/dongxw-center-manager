@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysResourceGroupMapper">
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysResourceGroup">
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysResourceGroupMapper">
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysResourceGroup">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="group_type" property="groupType" jdbcType="TINYINT" />
 		<result column="group_name" property="groupName" jdbcType="VARCHAR" />
@@ -24,10 +24,10 @@
 		srg.create_on srg_create_on,srg.op_by srg_op_by,srg.op_on srg_op_on,srg.domain_id srg_domain_id
 	</sql>
 
-	<resultMap type="cn.integriti.center.biz.sys.domain.SysResourceGroup"
+	<resultMap type="cn.kunlong.center.biz.sys.domain.SysResourceGroup"
 		id="ResultMap_WithResource" extends="BaseResultMap">
 		<collection property="sysResources" columnPrefix="sr_"
-			resultMap="cn.integriti.center.biz.sys.dao.SysResourceMapper.BaseResultMap"></collection>
+			resultMap="cn.kunlong.center.biz.sys.dao.SysResourceMapper.BaseResultMap"></collection>
 
 	</resultMap>
 	<select id="findRoleResources" parameterType="map"

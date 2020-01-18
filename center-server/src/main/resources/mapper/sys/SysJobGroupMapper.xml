@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.integriti.center.biz.sys.dao.SysJobGroupMapper" >
-	<resultMap id="BaseResultMap" type="cn.integriti.center.biz.sys.domain.SysJobGroup" >
+<mapper namespace="cn.kunlong.center.biz.sys.dao.SysJobGroupMapper" >
+	<resultMap id="BaseResultMap" type="cn.kunlong.center.biz.sys.domain.SysJobGroup" >
 	    <id column="id" property="id" jdbcType="INTEGER" />	
 	  	<result column="group_name" property="groupName" jdbcType="VARCHAR" />
 	  	<result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -11,7 +11,7 @@
 	  	<result column="update_on" property="updateOn" jdbcType="TIMESTAMP" />
 	  	<result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     </resultMap>
-    <resultMap id="BaseResultMap_SysJobGroup" type="cn.integriti.center.biz.sys.domain.SysJobGroup" >
+    <resultMap id="BaseResultMap_SysJobGroup" type="cn.kunlong.center.biz.sys.domain.SysJobGroup" >
 	    <id column="tsjg_id" property="id" jdbcType="INTEGER" />	
 	  	<result column="tsjg_group_name" property="groupName" jdbcType="VARCHAR" />
 	  	<result column="tsjg_remark" property="remark" jdbcType="VARCHAR" />
@@ -55,7 +55,7 @@
   
   
   
-   <update id="updateClause"  parameterType="cn.integriti.center.biz.sys.domain.SysJobGroup">
+   <update id="updateClause"  parameterType="cn.kunlong.center.biz.sys.domain.SysJobGroup">
         update t_sys_job_group set <include refid="dymicset"/> where 
        		id = #{sysJobGroup.id} 
    </update>
